@@ -25,6 +25,12 @@
     };
 
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
+
+    firewall = {
+      enable = true;
+      allowedUDPPorts = [ config.services.tailscale.port ];
+      trustedInterfaces = [ "tailscale0" ];
+    };
   };
 
   system.stateVersion = "25.05";
