@@ -19,7 +19,8 @@ in {
   config = lib.mkIf cfg.enable {
     services.caddy = {
       enable = true;
-      virtualHosts."${cfg.machineName}.${cfg.tailnetName}" = {
+
+      virtualHosts."${cfg.machineName}.${cfg.tailnetName}.ts.net" = {
         extraConfig = ''
           respond "OK"
         '';
