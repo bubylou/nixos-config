@@ -24,7 +24,7 @@
       interface = "enp4s0";
     };
 
-    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    nameservers = [ "100.100.100.100" "1.1.1.1" ];
 
     firewall = {
       enable = true;
