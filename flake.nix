@@ -21,6 +21,7 @@
           comin.nixosModules.comin
           disko.nixosModules.disko
           ./machines/nas02/configuration.nix
+          ./modules/home-lab/default.nix
         ];
       };
     };

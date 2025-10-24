@@ -23,7 +23,11 @@
     }];
   };
 
-  services.openssh.enable = true;
+  home-lab.ssh = {
+    enable = true;
+    users = [ "buby" ];
+  };
+
   services.tailscale.enable = true;
 
   security.sudo.extraRules = [{
