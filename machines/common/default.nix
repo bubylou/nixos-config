@@ -18,9 +18,8 @@
     enable = true;
     remotes = [{
       name = "origin";
-      url = "/home/buby/comin";
+      url = "https://github.com/bubylou/nixos-config.git";
       branches.main.name = "main";
-      poller.period = 2;
     }];
   };
 
