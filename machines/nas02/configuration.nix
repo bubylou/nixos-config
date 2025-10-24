@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   imports =
@@ -30,6 +30,21 @@
       enable = true;
       allowedUDPPorts = [ config.services.tailscale.port ];
       trustedInterfaces = [ "tailscale0" ];
+    };
+  };
+
+  services.minecraft-servers = {
+    enable = true;
+    eula = true;
+
+    servers.paper = {
+      enable = true;
+      package = pkgs.paperServers.paper-1_21_10;
+
+      serverProperties = {
+        difficulty = 2;
+        gamemode = 0;
+      };
     };
   };
 
