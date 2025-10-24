@@ -26,12 +26,6 @@
   };
 
   home-lab = {
-    caddy = {
-      enable = true;
-      machineName = config.networking.hostName;
-      tailnetName = "dhole-pirate.ts.net";
-    };
-
     ssh = {
       enable = true;
       users = [ "buby" ];

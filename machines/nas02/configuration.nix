@@ -33,5 +33,13 @@
     };
   };
 
+  home-lab = {
+    caddy = {
+      enable = true;
+      machineName = config.networking.hostName;
+      tailnetName = "dhole-pirate.ts.net";
+    };
+  };
+
   system.stateVersion = "25.05";
 }
