@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   imports =
@@ -34,6 +34,17 @@
   };
 
   home-lab = {
+    minecraft = {
+      enable = true;
+      operators = {
+        Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40";
+      };
+      whitelist = {
+        Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40";
+      };
+      package = pkgs.paperServers.paper-1_21_10;
+    };
+    
     caddy = {
       enable = true;
       machineName = config.networking.hostName;
