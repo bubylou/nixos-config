@@ -1,3 +1,5 @@
+{ pkgs, lib, config, ... }:
+
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -18,7 +20,7 @@
     enable = true;
     remotes = [{
       name = "origin";
-      url = "https://github.com/bubylou/nixos-config.git";
+      url = "https://github.com/bubylou/nixos-config";
       branches.main.name = "main";
     }];
   };
@@ -37,6 +39,11 @@
       options = [ "NOPASSWD" ];
     }];
   }];
+
+  environment.systemPackages = map lib.lowPrio [
+    pkgs.curl
+    pkgs.gitMinimal
+  ];
 
   nixpkgs.config.allowUnfree = true;
 }
