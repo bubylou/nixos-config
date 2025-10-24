@@ -4,6 +4,7 @@
   imports =
     [
       ../common/default.nix
+      ../common/nvidia.nix
       ./disk-config.nix
       ./hardware-configuration.nix
     ];
