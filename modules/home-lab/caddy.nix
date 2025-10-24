@@ -8,11 +8,15 @@ in {
     machineName = lib.mkOption {
       type = lib.types.str;
       description = "The name of the machine";
+      default = config.networking.hostName;
+      example = "nas02";
     };
 
     tailnetName = lib.mkOption {
       type = lib.types.str;
       description = "The name of the tailnet";
+      default = "";
+      example = "test-example.ts.net";
     };
   };
 
@@ -20,14 +24,14 @@ in {
     services.caddy = {
       enable = true;
 
-      virtualHosts."${cfg.machineName}.${cfg.tailnetName}.ts.net" = {
+      virtualHosts."https://${cfg.machineName}.${cfg.tailnetName}" = {
         extraConfig = ''
-          respond "OK"
+          respond "OK" 200
         '';
       };
     };
 
     # Allow the Caddy user(and service) to edit certs
-    services.tailscale.permitCertUid = "caddy";
+    services.tailscale.permitCertUid = config.services.caddy.user;
   };
 }
