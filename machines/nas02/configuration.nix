@@ -28,27 +28,41 @@
 
     firewall = {
       enable = true;
-      allowedUDPPorts = [ config.services.tailscale.port ];
       trustedInterfaces = [ "tailscale0" ];
+
+      allowedUDPPorts = [
+        config.services.blocky.settings.ports.dns
+        config.services.tailscale.port
+      ];
     };
   };
 
   home-lab = {
-    minecraft = {
+    blocky = {
       enable = true;
-      operators = {
-        Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40";
+      customDNS = {
+        "bubylou.com" = "192.168.1.11";
+        "sugondeez.com" = "192.168.1.12";
       };
-      whitelist = {
-        Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40";
-      };
-      package = pkgs.paperServers.paper-1_21_10;
     };
-    
     caddy = {
       enable = true;
       tailnetName = "dhole-pirate.ts.net";
     };
+
+    minecraft = {
+      enable = true;
+      package = pkgs.paperServers.paper-1_21_10;
+
+      operators = {
+        Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40";
+      };
+
+      whitelist = {
+        Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40";
+      };
+    };
+    
   };
 
   system.stateVersion = "25.05";
