@@ -4,6 +4,13 @@ let
 in {
   options.home-lab.jellyfin = {
     enable = lib.mkEnableOption "enables jellyfin";
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "jellyfin.localhost";
+      description = "Domain name of the jellyfin server";
+      example = "jellyfin.localhost";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -12,9 +19,9 @@ in {
     };
 
     services.caddy = {
-      virtualHosts."https://jellyfin.${cfg.tailnetName}" = {
+      virtualHosts."https://jellyfin.${cfg.domain}" = {
         extraConfig = ''
-          reverse_proxy 127.0.0.1:8096
+          reverse_proxy 0.0.0.0:8096
         '';
       };
     };
