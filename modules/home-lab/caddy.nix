@@ -26,7 +26,7 @@ in {
 
       virtualHosts."https://${cfg.machineName}.${cfg.tailnetName}" = {
         extraConfig = ''
-          respond "OK" 200
+          reverse_proxy 0.0.0.0:8096
         '';
       };
     };

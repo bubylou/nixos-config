@@ -72,8 +72,8 @@
   };
 
   boot.supportedFilesystems = [ "nfs" ];
-  fileSystems."/mnt/nfs" = {
-    device = "nas01.dhole-pirate.ts.net:/srv";
+  fileSystems."/mnt/nfs/share" = {
+    device = "192.168.1.11:/srv/share";
     fsType = "nfs";
     options = [ "x-systemd.automount" "noauto" ];
   };
