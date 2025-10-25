@@ -71,5 +71,12 @@
     
   };
 
+  boot.supportedFilesystems = [ "nfs" ];
+  fileSystems."/mnt/nfs" = {
+    device = "nas01.dhole-pirate.ts.net:/srv";
+    fsType = "nfs";
+    options = [ "x-systemd.automount" "noauto" ];
+  };
+
   system.stateVersion = "25.05";
 }
