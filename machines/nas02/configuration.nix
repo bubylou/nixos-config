@@ -45,10 +45,13 @@
         "sugondeez.com" = "192.168.1.12";
       };
     };
+
     caddy = {
       enable = true;
       tailnetName = "dhole-pirate.ts.net";
     };
+
+    jellyfin.enable = true;
 
     minecraft = {
       enable = true;
