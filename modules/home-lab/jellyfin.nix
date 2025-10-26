@@ -20,6 +20,9 @@ in
       virtualHosts."https://jellyfin.${cfg.domain}" = {
         extraConfig = ''
           bind tailscale/jellyfin
+          tls {
+            get_certificate tailscale
+          }
           reverse_proxy 0.0.0.0:8096
         '';
       };

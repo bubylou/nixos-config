@@ -52,7 +52,7 @@
 
     jellyfin = {
       enable = true;
-      domain = config.home-lab.caddy.tailnetName;
+      domain = "dhole-pirate.ts.net";
     };
 
     minecraft = {
