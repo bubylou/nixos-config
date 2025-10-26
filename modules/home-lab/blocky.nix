@@ -1,13 +1,13 @@
-{ pkgs, lib, config, ... }:
-let
-  cfg = config.home-lab.blocky;
-in {
+{ lib, config, ... }:
+let cfg = config.home-lab.blocky;
+in
+{
   options.home-lab.blocky = {
     enable = lib.mkEnableOption "enables blocky";
 
     customDNS = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = {};
+      default = { };
       description = "Custom DNS entries";
       example = { "nas01.localhost" = "192.168.1.11"; };
     };
@@ -25,9 +25,7 @@ in {
       settings = {
         ports.dns = cfg.port;
 
-        upstreams.groups.default = [
-          "https://one.one.one.one/dns-query"
-        ];
+        upstreams.groups.default = [ "https://one.one.one.one/dns-query" ];
 
         bootstrapDns = {
           upstream = "https://one.one.one.one/dns-query";
@@ -36,17 +34,15 @@ in {
 
         blocking = {
           denylists = {
-            ads = ["https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"];
+            ads = [
+              "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+            ];
           };
 
-          clientGroupsBlock = {
-            default = [ "ads" ];
-          };
+          clientGroupsBlock = { default = [ "ads" ]; };
         };
 
-        customDNS = {
-          mapping = cfg.customDNS;
-        };
+        customDNS = { mapping = cfg.customDNS; };
       };
     };
   };

@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, ... }:
 
 {
   boot.loader.systemd-boot.enable = true;
@@ -42,10 +42,7 @@
     }];
   }];
 
-  environment.systemPackages = map lib.lowPrio [
-    pkgs.curl
-    pkgs.gitMinimal
-  ];
+  environment.systemPackages = map lib.lowPrio [ pkgs.curl pkgs.gitMinimal ];
 
   nixpkgs.config.allowUnfree = true;
 }

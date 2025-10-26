@@ -1,7 +1,7 @@
-{ pkgs, lib, config, ... }:
-let
-  cfg = config.home-lab.ssh;
-in {
+{ lib, config, ... }:
+let cfg = config.home-lab.ssh;
+in
+{
   options.home-lab.ssh = {
     enable = lib.mkEnableOption "enables openssh server";
 

@@ -1,20 +1,20 @@
 { pkgs, lib, config, ... }:
-let
-  cfg = config.home-lab.minecraft;
-in {
+let cfg = config.home-lab.minecraft;
+in
+{
   options.home-lab.minecraft = {
     enable = lib.mkEnableOption "enables minecraft server";
 
     operators = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = {};
+      default = { };
       description = "Operators list";
       example = { "Bubylou" = "1111111111111-2222-3333-444444444444"; };
     };
 
     whitelist = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = {};
+      default = { };
       description = "Whitelisted players";
       example = { "Bubylou" = "1111111111111-2222-3333-444444444444"; };
     };

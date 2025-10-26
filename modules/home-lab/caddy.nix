@@ -1,7 +1,7 @@
-{ pkgs, lib, config, ... }:
-let
-  cfg = config.home-lab.caddy;
-in {
+{ lib, config, ... }:
+let cfg = config.home-lab.caddy;
+in
+{
   options.home-lab.caddy = {
     enable = lib.mkEnableOption "enables caddy";
 

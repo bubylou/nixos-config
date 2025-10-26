@@ -1,13 +1,12 @@
 { pkgs, config, ... }:
 
 {
-  imports =
-    [
-      ../common/default.nix
-      ../common/nvidia.nix
-      ./disk-config.nix
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ../common/default.nix
+    ../common/nvidia.nix
+    ./disk-config.nix
+    ./hardware-configuration.nix
+  ];
 
   networking = {
     hostName = "nas02";
@@ -53,22 +52,18 @@
 
     jellyfin = {
       enable = true;
-      domain = "jellyfin.${config.home-lab.caddy.tailnetName}";
+      domain = config.home-lab.caddy.tailnetName;
     };
 
     minecraft = {
       enable = true;
       package = pkgs.paperServers.paper-1_21_10;
 
-      operators = {
-        Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40";
-      };
+      operators = { Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40"; };
 
-      whitelist = {
-        Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40";
-      };
+      whitelist = { Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40"; };
     };
-    
+
   };
 
   boot.supportedFilesystems = [ "nfs" ];

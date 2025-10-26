@@ -7,9 +7,9 @@ in
 
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "jellyfin.localhost";
+      default = "localhost";
       description = "Domain name of the jellyfin server";
-      example = "jellyfin.localhost";
+      example = "localhost";
     };
   };
 
