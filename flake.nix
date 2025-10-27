@@ -6,16 +6,35 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, disko, ... }: {
-    nixosConfigurations.nas02 = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        disko.nixosModules.disko
-        ./configuration.nix
-        ./hardware-configuration.nix
-      ];
+  outputs = { nixpkgs, disko, colmena, ... }: {
+    colmenaHive = colmena.lib.makeHive {
+      meta = {
+        nixpkgs = import nixpkgs {
+          system = "x86_64-linux";
+          overlays = [ ];
+        };
+      };
+
+      defaults = { pkgs, ... }: {
+        imports = [ ./common.nix disko.nixosModules.disko ];
+      };
+
+      nas02 = { name, disko, ... }: {
+        deployment = {
+          targetHost = name;
+          targetUser = "buby";
+        };
+
+        imports = [ ./disk-config.nix ./hardware-configuration.nix ];
+        networking.hostName = name;
+      };
     };
   };
 }

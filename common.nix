@@ -1,14 +1,10 @@
 { pkgs, ... }:
 
 {
-  imports = [ ./disk-config.nix ./hardware-configuration.nix ];
-
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nas02";
   time.timeZone = "America/New_York";
-
   users.users.buby = {
     isNormalUser = true;
     description = "Nicholas Malcolm";
