@@ -35,6 +35,7 @@
         imports = [
           ./machines/${name}/disk-config.nix
           ./machines/${name}/hardware-configuration.nix
+          ./machines/common/nvidia.nix
         ];
 
         networking.hostName = name;
