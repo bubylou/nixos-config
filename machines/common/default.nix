@@ -1,8 +1,19 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  networking = {
+    nameservers = [ "100.100.100.100" "1.1.1.1" ];
+
+    firewall = {
+      enable = true;
+      trustedInterfaces = [ "tailscale0" ];
+
+      allowedUDPPorts = [ config.services.tailscale.port ];
+    };
+  };
 
   time.timeZone = "America/New_York";
   users.users.buby = {
