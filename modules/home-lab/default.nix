@@ -1,1 +1,1 @@
-{ ... }: { imports = [ ./ssh.nix ]; }
+{ ... }: { imports = [ ./caddy.nix ./ssh.nix ]; }

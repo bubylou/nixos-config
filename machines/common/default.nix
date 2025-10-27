@@ -27,6 +27,11 @@
   };
 
   home-lab = {
+    caddy = {
+      enable = true;
+      domain = "dhole-pirate.ts.net";
+    };
+
     ssh = {
       enable = true;
       users = [ "buby" ];
