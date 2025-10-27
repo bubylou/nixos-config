@@ -26,7 +26,7 @@
         imports = [ ./machines/common/default.nix disko.nixosModules.disko ];
       };
 
-      nas02 = { name, disko, ... }: {
+      nas02 = { name, ... }: {
         deployment = {
           targetHost = name;
           targetUser = "buby";

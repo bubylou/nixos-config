@@ -28,5 +28,6 @@
 
   environment.systemPackages = with pkgs; [ curl gitMinimal ];
   nixpkgs.config.allowUnfree = true;
+  nix.settings.trusted-users = [ "buby" ];
   system.stateVersion = "25.05";
 }
