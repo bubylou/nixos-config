@@ -5,13 +5,16 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
-    nameservers = [ "100.100.100.100" "1.1.1.1" ];
+    nameservers = [ "127.0.0.1" "100.100.100.100" "1.1.1.1" ];
 
     firewall = {
       enable = true;
       trustedInterfaces = [ "tailscale0" ];
 
-      allowedUDPPorts = [ config.services.tailscale.port ];
+      allowedUDPPorts = [
+        config.services.blocky.settings.ports.dns
+        config.services.tailscale.port
+      ];
     };
   };
 
@@ -27,6 +30,12 @@
   };
 
   home-lab = {
+    blocky = {
+      enable = true;
+      adBlock = true;
+      customDNS = { "bubylou.com" = "192.168.1.11"; };
+    };
+
     caddy = {
       enable = true;
       domain = "dhole-pirate.ts.net";
