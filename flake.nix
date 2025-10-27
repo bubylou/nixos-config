@@ -23,7 +23,7 @@
       };
 
       defaults = { pkgs, ... }: {
-        imports = [ ./common.nix disko.nixosModules.disko ];
+        imports = [ ./machines/common/default.nix disko.nixosModules.disko ];
       };
 
       nas02 = { name, disko, ... }: {
@@ -32,7 +32,11 @@
           targetUser = "buby";
         };
 
-        imports = [ ./disk-config.nix ./hardware-configuration.nix ];
+        imports = [
+          ./machines/${name}/disk-config.nix
+          ./machines/${name}/hardware-configuration.nix
+        ];
+
         networking.hostName = name;
       };
     };
