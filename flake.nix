@@ -23,7 +23,11 @@
       };
 
       defaults = { pkgs, ... }: {
-        imports = [ ./machines/common/default.nix disko.nixosModules.disko ];
+        imports = [
+          ./machines/common/default.nix
+          ./modules/home-lab/default.nix
+          disko.nixosModules.disko
+        ];
       };
 
       nas02 = { name, ... }: {
