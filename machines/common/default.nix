@@ -30,25 +30,23 @@
   };
 
   home-lab = {
+    domain = "sugondeez.com";
+
     blocky = {
       enable = true;
       adBlock = true;
       customDNS = {
         "bubylou.com" = "192.168.1.11";
-        "sugondeez.com" = "100.78.117.28";
+        "${config.home-lab.domain}" = "100.78.117.28";
       };
     };
 
     caddy = {
       enable = true;
-      domain = "sugondeez.com";
       email = "bubylou@pm.me";
     };
 
-    jellyfin = {
-      enable = true;
-      domain = "sugondeez.com";
-    };
+    jellyfin = { enable = true; };
 
     ssh = {
       enable = true;

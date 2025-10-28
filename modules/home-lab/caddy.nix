@@ -5,13 +5,6 @@ in
   options.home-lab.caddy = {
     enable = lib.mkEnableOption "enables caddy";
 
-    domain = lib.mkOption {
-      type = lib.types.str;
-      description = "The base domain for caddy";
-      default = "";
-      example = "example.com";
-    };
-
     email = lib.mkOption {
       type = lib.types.str;
       description = "The email address to use for ACME";
@@ -39,10 +32,10 @@ in
       acceptTerms = true;
       defaults.email = "${cfg.email}";
 
-      certs."${cfg.domain}" = {
+      certs."${config.home-lab.domain}" = {
         group = config.services.caddy.group;
-        domain = "${cfg.domain}";
-        extraDomainNames = [ "*.${cfg.domain}" ];
+        domain = "${config.home-lab.domain}";
+        extraDomainNames = [ "*.${config.home-lab.domain}" ];
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
         dnsPropagationCheck = true;
