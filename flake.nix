@@ -40,20 +40,10 @@
           };
         };
 
-        imports = [
-          ./machines/${name}/disk-config.nix
-          ./machines/${name}/hardware-configuration.nix
-          ./machines/common/nvidia.nix
-        ];
+        imports =
+          [ ./machines/${name}/configuration.nix ./machines/common/nvidia.nix ];
 
         networking.hostName = name;
-
-        boot.supportedFilesystems = [ "nfs" ];
-        fileSystems."/mnt/nfs/share" = {
-          device = "nas01.bubylou.com:/srv/share";
-          fsType = "nfs";
-          options = [ "x-systemd.automount" "noauto" ];
-        };
       };
     };
   };

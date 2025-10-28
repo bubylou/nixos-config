@@ -1,22 +1,8 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  networking = {
-    nameservers = [ "127.0.0.1" "100.100.100.100" "1.1.1.1" ];
-
-    firewall = {
-      enable = true;
-      trustedInterfaces = [ "tailscale0" ];
-
-      allowedUDPPorts = [
-        config.services.blocky.settings.ports.dns
-        config.services.tailscale.port
-      ];
-    };
-  };
 
   time.timeZone = "America/New_York";
   users.users.buby = {
@@ -31,22 +17,6 @@
 
   home-lab = {
     domain = "sugondeez.com";
-
-    blocky = {
-      enable = true;
-      adBlock = true;
-      customDNS = {
-        "bubylou.com" = "192.168.1.11";
-        "${config.home-lab.domain}" = "100.78.117.28";
-      };
-    };
-
-    caddy = {
-      enable = true;
-      email = "bubylou@pm.me";
-    };
-
-    jellyfin = { enable = true; };
 
     ssh = {
       enable = true;
@@ -67,5 +37,4 @@
   environment.systemPackages = with pkgs; [ curl gitMinimal ];
   nixpkgs.config.allowUnfree = true;
   nix.settings.trusted-users = [ "buby" ];
-  system.stateVersion = "25.05";
 }
