@@ -26,6 +26,7 @@
         imports = [
           ./machines/common/default.nix
           ./modules/home-lab/default.nix
+          ./modules/desktop/default.nix
           disko.nixosModules.disko
         ];
       };
