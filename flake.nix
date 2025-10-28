@@ -22,41 +22,33 @@
         };
       };
 
-      defaults = { pkgs, ... }: {
+      defaults = { name, ... }: {
+        deployment = {
+          targetHost = name;
+          targetUser = "buby";
+        };
+
         imports = [
+          ./machines/${name}/configuration.nix
           ./machines/common/default.nix
           ./modules/home-lab/default.nix
           ./modules/desktop/default.nix
           disko.nixosModules.disko
         ];
+
+        networking.hostName = name;
       };
 
-      nas02 = { name, ... }: {
-        deployment = {
-          targetHost = name;
-          targetUser = "buby";
-          keys."acme-credentials.secret" = {
+      nas02 = { ... }: {
+        deployment.keys = {
+          "acme-credentials.secret" = {
             keyFile = "/home/buby/Code/colmena/acme-credentials.secret";
             user = "acme";
           };
         };
-
-        imports =
-          [ ./machines/${name}/configuration.nix ./machines/common/nvidia.nix ];
-
-        networking.hostName = name;
       };
 
-      xps13 = { name, ... }: {
-        deployment = {
-          targetHost = name;
-          targetUser = "buby";
-        };
-
-        imports = [ ./machines/${name}/configuration.nix ];
-
-        networking.hostName = name;
-      };
+      xps13 = { ... }: { };
     };
   };
 }

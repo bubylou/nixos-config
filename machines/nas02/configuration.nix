@@ -1,7 +1,8 @@
 { config, ... }:
 
 {
-  imports = [ ./disk-config.nix ./hardware-configuration.nix ];
+  imports =
+    [ ./disk-config.nix ./hardware-configuration.nix ../common/nvidia.nix ];
 
   networking = {
     nameservers = [ "127.0.0.1" "100.100.100.100" "1.1.1.1" ];
@@ -41,7 +42,7 @@
       email = "bubylou@pm.me";
     };
 
-    jellyfin = { enable = true; };
+    jellyfin.enable = true;
 
     ssh = {
       enable = true;
