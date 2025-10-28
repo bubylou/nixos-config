@@ -3,6 +3,13 @@
 {
   imports = [ ./disk-config.nix ./hardware-configuration.nix ];
 
+  home-lab = {
+    ssh = {
+      enable = true;
+      users = [ "buby" ];
+    };
+  };
+
   networking.networkmanager.enable = true;
 
   i18n.defaultLocale = "en_US.UTF-8";

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   boot.loader.systemd-boot.enable = true;
@@ -15,15 +15,6 @@
     ];
   };
 
-  home-lab = {
-    domain = "sugondeez.com";
-
-    ssh = {
-      enable = true;
-      users = [ "buby" ];
-    };
-  };
-
   services.tailscale.enable = true;
 
   security.sudo.extraRules = [{
@@ -34,7 +25,6 @@
     }];
   }];
 
-  environment.systemPackages = with pkgs; [ curl gitMinimal ];
   nixpkgs.config.allowUnfree = true;
   nix.settings.trusted-users = [ "buby" ];
 }

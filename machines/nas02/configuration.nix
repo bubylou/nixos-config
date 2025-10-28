@@ -25,6 +25,8 @@
   };
 
   home-lab = {
+    domain = "sugondeez.com";
+
     blocky = {
       enable = true;
       adBlock = true;
@@ -40,6 +42,11 @@
     };
 
     jellyfin = { enable = true; };
+
+    ssh = {
+      enable = true;
+      users = [ "buby" ];
+    };
   };
 
   system.stateVersion = "25.05";
