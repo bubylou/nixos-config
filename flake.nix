@@ -47,6 +47,13 @@
         ];
 
         networking.hostName = name;
+
+        boot.supportedFilesystems = [ "nfs" ];
+        fileSystems."/mnt/nfs/share" = {
+          device = "nas01.bubylou.com:/srv/share";
+          fsType = "nfs";
+          options = [ "x-systemd.automount" "noauto" ];
+        };
       };
     };
   };
