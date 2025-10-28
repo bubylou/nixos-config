@@ -38,7 +38,8 @@
 
     caddy = {
       enable = true;
-      domain = "dhole-pirate.ts.net";
+      domain = "sugondeez.com";
+      email = "bubylou@pm.me";
     };
 
     ssh = {

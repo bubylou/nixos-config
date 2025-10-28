@@ -34,6 +34,10 @@
         deployment = {
           targetHost = name;
           targetUser = "buby";
+          keys."acme-credentials.secret" = {
+            keyFile = "/home/buby/Code/colmena/acme-credentials.secret";
+            user = "acme";
+          };
         };
 
         imports = [
