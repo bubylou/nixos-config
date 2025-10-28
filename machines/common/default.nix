@@ -11,8 +11,8 @@
       description = "Nicholas Malcolm";
       extraGroups = [ "networkmanager" "wheel" ];
       openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMLpbx2wvIh7+iksunMRtHh9qDfwojF4j/ObtH+IdxMD buby@stealth16ai"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHhoQaZW/NXiN5504yj83XwTB+lzgwmvKnMq2LMQyYh9 buby@xps13-9370"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF/e963EBACYLtFHUXnffAgEARmrALCpe4klwAaZ9UEA buby@stealth16ai"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHZ9f7vpm92A7vER2PrwI9RKJlFcCbTx4Md0h/Dmxh1g buby@xps13"
       ];
     };
 
