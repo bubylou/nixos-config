@@ -45,6 +45,17 @@
 
         networking.hostName = name;
       };
+
+      xps13 = { name, ... }: {
+        deployment = {
+          targetHost = name;
+          targetUser = "buby";
+        };
+
+        imports = [ ./machines/${name}/configuration.nix ];
+
+        networking.hostName = name;
+      };
     };
   };
 }
