@@ -44,6 +44,11 @@
 
     jellyfin.enable = true;
 
+    lldap = {
+      enable = true;
+      ldapBaseDN = "dc=sugondeez,dc=com";
+    };
+
     ssh = {
       enable = true;
       users = [ "buby" ];
