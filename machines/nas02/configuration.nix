@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 
 {
   imports =
@@ -13,6 +13,7 @@
 
       allowedUDPPorts = [
         config.services.blocky.settings.ports.dns
+        config.services.minecraft-servers.servers.paper.serverProperties.server-port
         config.services.tailscale.port
       ];
     };
@@ -47,6 +48,14 @@
     lldap = {
       enable = true;
       ldapBaseDN = "dc=sugondeez,dc=com";
+    };
+
+    minecraft = {
+      enable = true;
+      package = pkgs.paperServers.paper-1_21_10;
+      difficulty = 2;
+      operators = { Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40"; };
+      whitelist = { Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40"; };
     };
 
     ssh = {

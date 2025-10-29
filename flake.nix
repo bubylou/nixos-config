@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
     disko = {
       url = "github:nix-community/disko";
@@ -13,7 +14,7 @@
     };
   };
 
-  outputs = { nixpkgs, disko, colmena, ... }: {
+  outputs = inputs@{ nixpkgs, nix-minecraft, disko, colmena, ... }: {
     colmenaHive = colmena.lib.makeHive {
       meta = {
         nixpkgs = import nixpkgs {
@@ -34,6 +35,7 @@
           ./modules/home-lab/default.nix
           ./modules/desktop/default.nix
           disko.nixosModules.disko
+          nix-minecraft.nixosModules.minecraft-servers
         ];
 
         networking.hostName = name;
@@ -42,10 +44,11 @@
       nas02 = { ... }: {
         deployment.keys = {
           "acme-credentials.secret" = {
-            keyFile = "/home/buby/Code/colmena/acme-credentials.secret";
+            keyFile = "/etc/nixos/secrets/acme-credentials.secret";
             user = "acme";
           };
         };
+        imports = [{ nixpkgs.overlays = [ inputs.nix-minecraft.overlay ]; }];
       };
 
       xps13 = { ... }: { };
