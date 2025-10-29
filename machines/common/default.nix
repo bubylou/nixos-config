@@ -33,6 +33,12 @@
     }];
   }];
 
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   nixpkgs.config.allowUnfree = true;
-  nix.settings.trusted-users = [ "buby" ];
+  nix.settings.trusted-users = [ "root" "@wheel" ];
 }
