@@ -19,15 +19,15 @@ in
 
       environmentVariables = {
         AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE =
-          "/run/keys/lldap-bind-credentials.secret";
+          "/etc/nixos/secrets/lldap-bind-credentials.secret";
         AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE =
-          "/run/keys/brevo-smtp-credentials.secret";
+          "/etc/nixos/secrets/brevo-smtp-credentials.secret";
       };
 
       secrets = {
-        jwtSecretFile = "/run/keys/authelia-jwt.secret";
-        storageEncryptionKeyFile = "/run/keys/authelia-storage.secret";
-        sessionSecretFile = "/run/keys/authelia-session.secret";
+        jwtSecretFile = "/etc/nixos/secrets/authelia-jwt.secret";
+        storageEncryptionKeyFile = "/etc/nixos/secrets/authelia-storage.secret";
+        sessionSecretFile = "/etc/nixos/secrets/authelia-session.secret";
       };
 
       settings = {

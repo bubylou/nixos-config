@@ -53,35 +53,40 @@
             keyFile = "/etc/nixos/secrets/authelia-jwt.secret";
             user = config.services.authelia.instances.main.user;
             group = config.services.authelia.instances.main.group;
-            permissions = "0644";
+            permissions = "0440";
+            destDir = "/etc/nixos/secrets";
           };
 
           "authelia-session.secret" = {
             keyFile = "/etc/nixos/secrets/authelia-session.secret";
             user = config.services.authelia.instances.main.user;
             group = config.services.authelia.instances.main.group;
-            permissions = "0644";
+            permissions = "0440";
+            destDir = "/etc/nixos/secrets";
           };
 
           "authelia-storage.secret" = {
             keyFile = "/etc/nixos/secrets/authelia-storage.secret";
             user = config.services.authelia.instances.main.user;
             group = config.services.authelia.instances.main.group;
-            permissions = "0644";
+            permissions = "0440";
+            destDir = "/etc/nixos/secrets";
           };
 
           "brevo-smtp-credentials.secret" = {
             keyFile = "/etc/nixos/secrets/brevo-smtp-credentials.secret";
             user = config.services.authelia.instances.main.user;
             group = config.services.authelia.instances.main.group;
-            permissions = "0644";
+            permissions = "0440";
+            destDir = "/etc/nixos/secrets";
           };
 
           "lldap-bind-credentials.secret" = {
             keyFile = "/etc/nixos/secrets/lldap-bind-credentials.secret";
             user = config.services.authelia.instances.main.user;
             group = config.services.authelia.instances.main.group;
-            permissions = "0644";
+            permissions = "0440";
+            destDir = "/etc/nixos/secrets";
           };
         };
         imports = [{ nixpkgs.overlays = [ inputs.nix-minecraft.overlay ]; }];
