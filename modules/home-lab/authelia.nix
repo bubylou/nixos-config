@@ -81,7 +81,7 @@ in
         };
 
         access_control = {
-          default_policy = "deny";
+          default_policy = "two_factor";
           rules = [
             {
               domain_regex = "(jellyfin|status).${config.home-lab.domain}$";
@@ -90,10 +90,6 @@ in
             {
               domain_regex = "(jellyseerr|mealie).${config.home-lab.domain}$";
               policy = "one_factor";
-            }
-            {
-              domain = "*.${config.home-lab.domain}$";
-              policy = "two_factor";
             }
           ];
         };

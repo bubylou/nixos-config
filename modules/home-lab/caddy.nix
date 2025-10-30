@@ -23,6 +23,15 @@ in
           trusted_proxies static private_ranges
         }
       '';
+
+      extraConfig = ''
+        (auth) {
+          forward_auth :9091 {
+            uri /api/authz/forward-auth
+            copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+          }
+        }
+      '';
     };
 
     # Allow the Caddy user(and service) to edit certs

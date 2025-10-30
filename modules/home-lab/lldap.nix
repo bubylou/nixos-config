@@ -50,6 +50,7 @@ in
       virtualHosts."lldap.${config.home-lab.domain}" = {
         useACMEHost = "${config.home-lab.domain}";
         extraConfig = ''
+          import auth
           reverse_proxy http://127.0.0.1:${toString cfg.httpPort}
         '';
       };
