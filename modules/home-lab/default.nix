@@ -1,5 +1,6 @@
 { lib, ... }: {
   imports = [
+    ./authelia.nix
     ./blocky.nix
     ./caddy.nix
     ./jellyfin.nix

@@ -29,6 +29,8 @@
   home-lab = {
     domain = "sugondeez.com";
 
+    authelia.enable = true;
+
     blocky = {
       enable = true;
       adBlock = true;

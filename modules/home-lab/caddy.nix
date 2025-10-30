@@ -39,7 +39,7 @@ in
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
         dnsPropagationCheck = true;
-        environmentFile = "/run/keys/acme-credentials.secret";
+        environmentFile = "/run/keys/acme-cloudflare-credentials.secret";
       };
     };
   };
