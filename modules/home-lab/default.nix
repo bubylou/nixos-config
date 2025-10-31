@@ -3,6 +3,7 @@
     ./authelia.nix
     ./blocky.nix
     ./caddy.nix
+    ./gatus.nix
     ./jellyfin.nix
     ./lldap.nix
     ./minecraft.nix

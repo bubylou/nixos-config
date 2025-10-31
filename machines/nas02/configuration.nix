@@ -45,6 +45,7 @@
       email = "bubylou@pm.me";
     };
 
+    gatus.enable = true;
     jellyfin.enable = true;
 
     lldap = {
