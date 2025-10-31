@@ -1,19 +1,16 @@
-{ pkgs, ... }:
-
-{
-  imports =
-    [ ./disk-config.nix ./hardware-configuration.nix ../common/nvidia.nix ];
+{pkgs, ...}: {
+  imports = [./disk-config.nix ./hardware-configuration.nix ../common/nvidia.nix];
 
   home-lab = {
     ssh = {
       enable = true;
-      users = [ "buby" ];
+      users = ["buby"];
     };
   };
 
   desktop.gnome.enable = true;
 
-  environment.systemPackages = with pkgs; [ qmk qmk-udev-rules ];
+  environment.systemPackages = with pkgs; [qmk qmk-udev-rules];
 
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "buby";
@@ -22,6 +19,6 @@
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "25.05";
 }
