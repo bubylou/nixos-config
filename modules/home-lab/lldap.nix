@@ -8,8 +8,8 @@ in
     httpHost = lib.mkOption {
       type = lib.types.str;
       description = "The host to use for the HTTP server";
-      default = "::";
-      example = "::";
+      default = "::1";
+      example = "::1";
     };
 
     httpPort = lib.mkOption {
@@ -65,9 +65,17 @@ in
         useACMEHost = "${config.home-lab.domain}";
         extraConfig = ''
           import auth
-          reverse_proxy http://[${cfg.httpHost}]:${toString cfg.httpPort}
+          reverse_proxy http://${cfg.httpHost}:${toString cfg.httpPort}
         '';
       };
     };
+
+    services.gatus.settings.endpoints = [{
+      name = "lldap";
+      url = "http://${cfg.httpHost}:${toString cfg.httpPort}";
+      interval = "1m";
+      client.dns-resolver = "tcp://127.0.0.1:53";
+      conditions = [ "[STATUS] == 200" "[RESPONSE_TIME] < 100" ];
+    }];
   };
 }

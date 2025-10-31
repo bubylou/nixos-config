@@ -32,6 +32,13 @@ in
           }
         }
       '';
+
+      virtualHosts."${config.home-lab.domain}" = {
+        useACMEHost = "${config.home-lab.domain}";
+        extraConfig = ''
+          respond OK
+        '';
+      };
     };
 
     # Allow the Caddy user(and service) to edit certs
@@ -51,5 +58,13 @@ in
         environmentFile = "/run/keys/acme-cloudflare-credentials.secret";
       };
     };
+
+    services.gatus.settings.endpoints = [{
+      name = "caddy";
+      url = "https://${config.home-lab.domain}";
+      interval = "1m";
+      client.dns-resolver = "tcp://127.0.0.1:53";
+      conditions = [ "[STATUS] == 200" "[RESPONSE_TIME] < 100" "[BODY] == OK" ];
+    }];
   };
 }

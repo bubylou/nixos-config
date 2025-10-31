@@ -8,8 +8,8 @@ in
     host = lib.mkOption {
       type = lib.types.str;
       description = "The host to use for the authelia server";
-      default = "::";
-      example = "::";
+      default = "::1";
+      example = "::1";
     };
 
     port = lib.mkOption {
@@ -120,7 +120,7 @@ in
 
         regulation = {
           max_retries = 3;
-          find_time = "5m";
+          find_time = "1m";
           ban_time = "15m";
         };
 
@@ -163,9 +163,17 @@ in
       virtualHosts."auth.${config.home-lab.domain}" = {
         useACMEHost = "${config.home-lab.domain}";
         extraConfig = ''
-          reverse_proxy http://[${cfg.host}]:${toString cfg.port}
+          reverse_proxy http://${cfg.host}:${toString cfg.port}
         '';
       };
     };
+
+    services.gatus.settings.endpoints = [{
+      name = "auth";
+      url = "https://auth.${config.home-lab.domain}";
+      interval = "1m";
+      client.dns-resolver = "tcp://127.0.0.1:53";
+      conditions = [ "[STATUS] == 200" "[RESPONSE_TIME] < 100" ];
+    }];
   };
 }

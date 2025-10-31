@@ -49,5 +49,16 @@ in
         customDNS = { mapping = cfg.customDNS; };
       };
     };
+
+    services.gatus.settings.endpoints = [{
+      name = "blocky";
+      url = "127.0.0.1:${toString cfg.port}";
+      interval = "1m";
+      dns = {
+        query-name = "sugondeez.com";
+        query-type = "A";
+      };
+      conditions = [ "[DNS_RCODE] == NOERROR" ];
+    }];
   };
 }
