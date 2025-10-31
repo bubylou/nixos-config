@@ -5,7 +5,7 @@
     [ ./disk-config.nix ./hardware-configuration.nix ../common/nvidia.nix ];
 
   networking = {
-    nameservers = [ "127.0.0.1" "100.100.100.100" "1.1.1.1" ];
+    nameservers = [ "::1" ];
 
     firewall = {
       enable = true;

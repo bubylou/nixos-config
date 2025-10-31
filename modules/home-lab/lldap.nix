@@ -5,11 +5,25 @@ in
   options.home-lab.lldap = {
     enable = lib.mkEnableOption "enables lldap server";
 
+    httpHost = lib.mkOption {
+      type = lib.types.str;
+      description = "The host to use for the HTTP server";
+      default = "::";
+      example = "::";
+    };
+
     httpPort = lib.mkOption {
       type = lib.types.int;
       description = "The port to use for the HTTP server";
       default = 17170;
       example = 17170;
+    };
+
+    ldapHost = lib.mkOption {
+      type = lib.types.str;
+      description = "The host to use for the LDAP server";
+      default = "::";
+      example = "::";
     };
 
     ldapPort = lib.mkOption {
@@ -35,12 +49,12 @@ in
         ldap_user_email = "admin@${config.home-lab.domain}";
         ldap_user_dn = "admin";
         ldap_port = cfg.ldapPort;
-        ldap_host = "127.0.0.1";
+        ldap_host = cfg.ldapHost;
         ldap_base_dn = "${cfg.ldapBaseDN}";
 
         http_url = "https://lldap.${config.home-lab.domain}";
         http_port = cfg.httpPort;
-        http_host = "127.0.0.1";
+        http_host = cfg.httpHost;
 
         database_url = "sqlite://./users.db?mode=rwc";
       };
@@ -51,7 +65,7 @@ in
         useACMEHost = "${config.home-lab.domain}";
         extraConfig = ''
           import auth
-          reverse_proxy http://127.0.0.1:${toString cfg.httpPort}
+          reverse_proxy http://[${cfg.httpHost}]:${toString cfg.httpPort}
         '';
       };
     };

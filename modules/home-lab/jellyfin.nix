@@ -13,7 +13,7 @@ in
       virtualHosts."jellyfin.${config.home-lab.domain}" = {
         useACMEHost = "${config.home-lab.domain}";
         extraConfig = ''
-          reverse_proxy http://127.0.0.1:8096
+          reverse_proxy http://[::]:8096
         '';
       };
     };

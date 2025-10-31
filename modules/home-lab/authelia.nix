@@ -5,6 +5,13 @@ in
   options.home-lab.authelia = {
     enable = lib.mkEnableOption "enables authelia server";
 
+    host = lib.mkOption {
+      type = lib.types.str;
+      description = "The host to use for the authelia server";
+      default = "::";
+      example = "::";
+    };
+
     port = lib.mkOption {
       type = lib.types.int;
       description = "The port to use for the authelia server";
@@ -56,8 +63,9 @@ in
         authentication_backend = {
           ldap = {
             implementation = "lldap";
-            address =
-              "ldap://127.0.0.1:${toString config.home-lab.lldap.ldapPort}";
+            address = "ldap://[${config.home-lab.lldap.ldapHost}]:${
+                toString config.home-lab.lldap.ldapPort
+              }";
             base_dn = config.home-lab.lldap.ldapBaseDN;
             user = "uid=authelia_bind_user,ou=people,${
                 toString config.home-lab.lldap.ldapBaseDN
@@ -155,7 +163,7 @@ in
       virtualHosts."auth.${config.home-lab.domain}" = {
         useACMEHost = "${config.home-lab.domain}";
         extraConfig = ''
-          reverse_proxy http://127.0.0.1:${toString cfg.port}
+          reverse_proxy http://[${cfg.host}]:${toString cfg.port}
         '';
       };
     };
