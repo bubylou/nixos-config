@@ -1,7 +1,19 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [ ./gnome.nix ];
+
+  environment.systemPackages = with pkgs; [
+    brave
+    bitwarden-desktop
+    discord
+    firefox
+    foliate
+    ghostty
+    obsidian
+    onlyoffice-bin
+    signal-desktop-bin
+  ];
 
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
