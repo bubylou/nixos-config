@@ -92,6 +92,7 @@
         imports = [{ nixpkgs.overlays = [ inputs.nix-minecraft.overlay ]; }];
       };
 
+      stealth16 = { ... }: { };
       xps13 = { ... }: { };
     };
   };
