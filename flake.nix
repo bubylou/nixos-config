@@ -12,9 +12,14 @@
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nvf = {
+      url = "github:NotAShelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, nix-minecraft, disko, colmena, ... }: {
+  outputs = inputs@{ nvf, nixpkgs, nix-minecraft, disko, colmena, ... }: {
     colmenaHive = colmena.lib.makeHive {
       meta = {
         nixpkgs = import nixpkgs {
@@ -92,7 +97,9 @@
         imports = [{ nixpkgs.overlays = [ inputs.nix-minecraft.overlay ]; }];
       };
 
-      stealth16 = { ... }: { };
+      stealth16 = { ... }: {
+        imports = [ nvf.nixosModules.nvf ./machines/common/neovim.nix ];
+      };
       xps13 = { ... }: { };
     };
   };
