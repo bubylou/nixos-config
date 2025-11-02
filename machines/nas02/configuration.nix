@@ -25,7 +25,15 @@
     options = ["x-systemd.automount" "noauto"];
   };
 
+  hardware.nvidia-container-toolkit.enable = true;
+
   home-lab = {
+    containers = {
+      jellyfin = {
+        enable = true;
+        port = 8097;
+      };
+    };
     domain = "sugondeez.com";
 
     authelia.enable = true;
