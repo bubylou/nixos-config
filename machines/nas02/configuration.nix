@@ -29,6 +29,10 @@
 
   home-lab = {
     containers = {
+      beszel = {
+        enable = true;
+        port = 8090;
+      };
       jellyfin = {
         enable = true;
         port = 8097;
