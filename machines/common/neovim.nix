@@ -6,8 +6,11 @@
       viAlias = true;
       vimAlias = true;
 
-      spellcheck = {
-        enable = true;
+      clipboard.enable = true;
+      spellcheck.enable = true;
+
+      assistant = {
+        supermaven-nvim.enable = true;
       };
 
       lsp = {
@@ -17,6 +20,7 @@
         lightbulb.enable = true;
         lspsaga.enable = false;
         trouble.enable = true;
+        otter-nvim.enable = true;
       };
 
       debugger = {
@@ -34,6 +38,7 @@
         nix.enable = true;
         markdown.enable = true;
         bash.enable = true;
+        clang.enable = true;
         html.enable = true;
         sql.enable = true;
         go.enable = true;
@@ -65,9 +70,7 @@
       };
 
       autopairs.nvim-autopairs.enable = true;
-
       snippets.luasnip.enable = true;
-
       treesitter.context.enable = true;
 
       binds = {
@@ -92,6 +95,8 @@
         vim-wakatime.enable = false;
         diffview-nvim.enable = true;
         yanky-nvim.enable = false;
+        oil-nvim.enable = true;
+        sleuth.enable = true;
 
         motion = {
           hop.enable = true;
@@ -124,12 +129,6 @@
           enable = true;
         };
         fastaction.enable = true;
-      };
-
-      assistant = {
-        codecompanion-nvim.enable = true;
-        avante-nvim.enable = false;
-        supermaven-nvim.enable = true;
       };
 
       comments = {

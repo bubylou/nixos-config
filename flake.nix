@@ -49,6 +49,8 @@
 
         imports = [
           ./machines/${name}/configuration.nix
+          ./machines/${name}/disk-config.nix
+          ./machines/${name}/hardware-configuration.nix
           ./machines/common/default.nix
           ./modules/home-lab/default.nix
           ./modules/desktop/default.nix
@@ -107,7 +109,10 @@
             destDir = "/etc/nixos/secrets";
           };
         };
-        imports = [{nixpkgs.overlays = [inputs.nix-minecraft.overlay];}];
+        imports = [
+          {nixpkgs.overlays = [inputs.nix-minecraft.overlay];}
+          ./machines/common/nvidia.nix
+        ];
       };
 
       stealth16 = {...}: {
@@ -116,6 +121,7 @@
           home-manager.nixosModules.home-manager
           nvf.nixosModules.nvf
           ./machines/common/neovim.nix
+          ./machines/common/nvidia.nix
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

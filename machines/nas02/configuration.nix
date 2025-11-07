@@ -1,15 +1,14 @@
-{ pkgs, config, ... }:
-
 {
-  imports =
-    [ ./disk-config.nix ./hardware-configuration.nix ../common/nvidia.nix ];
-
+  pkgs,
+  config,
+  ...
+}: {
   networking = {
-    nameservers = [ "::1" ];
+    nameservers = ["::1"];
 
     firewall = {
       enable = true;
-      trustedInterfaces = [ "tailscale0" ];
+      trustedInterfaces = ["tailscale0"];
 
       allowedUDPPorts = [
         config.services.blocky.settings.ports.dns
@@ -19,11 +18,11 @@
     };
   };
 
-  boot.supportedFilesystems = [ "nfs" ];
+  boot.supportedFilesystems = ["nfs"];
   fileSystems."/mnt/nfs/share" = {
     device = "nas01.bubylou.com:/srv/share";
     fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" ];
+    options = ["x-systemd.automount" "noauto"];
   };
 
   home-lab = {
@@ -57,13 +56,13 @@
       enable = true;
       package = pkgs.paperServers.paper-1_21_10;
       difficulty = 2;
-      operators = { Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40"; };
-      whitelist = { Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40"; };
+      operators = {Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40";};
+      whitelist = {Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40";};
     };
 
     ssh = {
       enable = true;
-      users = [ "buby" ];
+      users = ["buby"];
     };
   };
 

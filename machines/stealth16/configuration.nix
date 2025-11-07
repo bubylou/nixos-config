@@ -1,6 +1,4 @@
 {pkgs, ...}: {
-  imports = [./disk-config.nix ./hardware-configuration.nix ../common/nvidia.nix];
-
   home-lab = {
     ssh = {
       enable = true;
