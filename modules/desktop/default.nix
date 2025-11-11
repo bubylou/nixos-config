@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  imports = [./gnome.nix];
+  imports = [./gnome.nix ./hyprland.nix];
 
   environment.systemPackages = with pkgs; [
     brave
