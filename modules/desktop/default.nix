@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-
-{
-  imports = [ ./gnome.nix ];
+{pkgs, ...}: {
+  imports = [./gnome.nix];
 
   environment.systemPackages = with pkgs; [
     brave
@@ -28,19 +26,22 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
+  services = {
+    xserver.xkb = {
+      layout = "us";
+      variant = "";
+    };
+
+    printing.enable = true;
+
+    pulseaudio.enable = false;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
   };
 
-  services.printing.enable = true;
-
-  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
 }
