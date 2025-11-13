@@ -60,6 +60,7 @@
 
         networking.hostName = name;
       };
+      mini01 = {...}: {};
 
       nas02 = {config, ...}: {
         deployment.keys = {
