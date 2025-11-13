@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-
-{
-  imports = [ ./gnome.nix ];
+{pkgs, ...}: {
+  imports = [./gnome.nix ./kodi.nix];
 
   environment.systemPackages = with pkgs; [
     brave
