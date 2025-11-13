@@ -9,6 +9,13 @@ in {
   options.desktop.kodi = {enable = lib.mkEnableOption "enables kodi kiosk";};
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [
+      (pkgs.kodi-wayland.withPackages (kodiPkgs:
+        with kodiPkgs; [
+          jellyfin
+        ]))
+    ];
+
     networking = {
       networkmanager.enable = true;
 
@@ -27,7 +34,11 @@ in {
 
     services.cage = {
       enable = true;
-      program = "${pkgs.kodi-wayland}/bin/kodi";
+      program = "${pkgs.kodi-wayland.withPackages
+        (kodiPkgs:
+          with kodiPkgs; [
+            jellyfin
+          ])}/bin/kodi";
       user = "kodi";
     };
   };
