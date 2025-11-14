@@ -9,13 +9,6 @@ in {
   options.desktop.kodi = {enable = lib.mkEnableOption "enables kodi kiosk";};
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [
-      (pkgs.kodi-wayland.withPackages (kodiPkgs:
-        with kodiPkgs; [
-          jellyfin
-        ]))
-    ];
-
     networking = {
       networkmanager.enable = true;
 
@@ -23,6 +16,9 @@ in {
         enable = true;
         trustedInterfaces = ["tailscale0"];
 
+        allowedTCPPorts = [
+          8080 # kodi remote control
+        ];
         allowedUDPPorts = [
           config.services.tailscale.port
           8080 # kodi remote control
@@ -30,16 +26,20 @@ in {
       };
     };
 
-    users.extraUsers.kodi.isNormalUser = true;
-
     services.cage = {
       enable = true;
       program = "${pkgs.kodi-wayland.withPackages
         (kodiPkgs:
           with kodiPkgs; [
+            bluetooth-manager
+            invidious
             jellyfin
+            sendtokodi
+            youtube
           ])}/bin/kodi";
       user = "kodi";
     };
+
+    users.extraUsers.kodi.isNormalUser = true;
   };
 }

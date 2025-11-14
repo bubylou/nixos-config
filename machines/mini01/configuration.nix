@@ -3,11 +3,15 @@
 
   desktop.kodi.enable = true;
 
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-    ];
+  hardware = {
+    bluetooth.enable = true;
+
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+      ];
+    };
   };
 
   home-lab = {
