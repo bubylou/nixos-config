@@ -1,5 +1,5 @@
 {...}: {
-  imports = [./gnome.nix ./kodi.nix];
+  imports = [./gnome.nix ./kde.nix ./kodi.nix];
 
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
