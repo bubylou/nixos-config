@@ -13,9 +13,6 @@ in {
       networkmanager.enable = true;
 
       firewall = {
-        enable = true;
-        trustedInterfaces = ["tailscale0"];
-
         # kodi remote control
         allowedTCPPorts = [8080];
         allowedUDPPorts = [8080];

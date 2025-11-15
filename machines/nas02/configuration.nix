@@ -7,13 +7,9 @@
     nameservers = ["::1"];
 
     firewall = {
-      enable = true;
-      trustedInterfaces = ["tailscale0"];
-
       allowedUDPPorts = [
         config.services.blocky.settings.ports.dns
         config.services.minecraft-servers.servers.paper.serverProperties.server-port
-        config.services.tailscale.port
       ];
     };
   };
