@@ -11,6 +11,7 @@
     ./jellyfin.nix
     ./lldap.nix
     ./minecraft.nix
+    ./radarr.nix
     ./ssh.nix
   ];
 

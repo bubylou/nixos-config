@@ -60,6 +60,8 @@
       whitelist = {Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40";};
     };
 
+    radarr.enable = true;
+
     ssh = {
       enable = true;
       users = ["buby"];
