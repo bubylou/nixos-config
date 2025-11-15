@@ -28,6 +28,9 @@ in {
         image = "ghcr.io/linuxserver/sonarr:4.0.16";
         environment = {
           TZ = "America/New_York";
+          SONARR__AUTH__ENABLED = "False";
+          SONARR__AUTH__METHOD = "External";
+          SONARR__AUTH__REQUIRED = "False";
         };
         ports = [
           "${toString cfg.port}:8989"
