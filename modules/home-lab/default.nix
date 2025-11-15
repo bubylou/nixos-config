@@ -12,6 +12,7 @@
     ./lldap.nix
     ./minecraft.nix
     ./radarr.nix
+    ./sonarr.nix
     ./ssh.nix
   ];
 

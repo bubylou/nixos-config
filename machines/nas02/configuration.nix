@@ -61,6 +61,7 @@
     };
 
     radarr.enable = true;
+    sonarr.enable = true;
 
     ssh = {
       enable = true;
