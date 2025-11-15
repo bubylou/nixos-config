@@ -22,7 +22,7 @@ in {
     services.greetd = {
       enable = true;
       settings = {
-        default_session = {
+        initial_session = {
           command = "${pkgs.kodi-gbm.withPackages
             (kodiPkgs:
               with kodiPkgs; [
@@ -34,7 +34,15 @@ in {
               ])}/bin/kodi-standalone";
           user = "kodi";
         };
+        default_session = {
+          command = "${pkgs.greetd.greetd}/bin/agreety --cmd sway";
+        };
       };
+    };
+
+    programs.sway = {
+      enable = true;
+      xwayland.enable = false;
     };
 
     services.getty.autologinUser = "kodi";
