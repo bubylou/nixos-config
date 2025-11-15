@@ -16,30 +16,31 @@ in {
         enable = true;
         trustedInterfaces = ["tailscale0"];
 
-        allowedTCPPorts = [
-          8080 # kodi remote control
-        ];
-        allowedUDPPorts = [
-          config.services.tailscale.port
-          8080 # kodi remote control
-        ];
+        # kodi remote control
+        allowedTCPPorts = [8080];
+        allowedUDPPorts = [8080];
       };
     };
 
-    services.cage = {
+    services.greetd = {
       enable = true;
-      program = "${pkgs.kodi-wayland.withPackages
-        (kodiPkgs:
-          with kodiPkgs; [
-            bluetooth-manager
-            invidious
-            jellyfin
-            sendtokodi
-            youtube
-          ])}/bin/kodi";
-      user = "kodi";
+      settings = {
+        default_session = {
+          command = "${pkgs.kodi-gbm.withPackages
+            (kodiPkgs:
+              with kodiPkgs; [
+                bluetooth-manager
+                invidious
+                jellyfin
+                sendtokodi
+                youtube
+              ])}/bin/kodi-standalone";
+          user = "kodi";
+        };
+      };
     };
 
+    services.getty.autologinUser = "kodi";
     users.extraUsers.kodi.isNormalUser = true;
   };
 }
