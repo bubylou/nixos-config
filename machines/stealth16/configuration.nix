@@ -6,7 +6,7 @@
     };
   };
 
-  desktop.gnome.enable = true;
+  desktop.hyprland.enable = true;
 
   environment.systemPackages = with pkgs; [
     heroic
@@ -16,19 +16,15 @@
     qmk-udev-rules
     wine
   ];
-  programs.gamemode.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    extraCompatPackages = with pkgs; [proton-ge-bin];
+
+  programs = {
+    gamemode.enable = true;
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      extraCompatPackages = with pkgs; [proton-ge-bin];
+    };
   };
-
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "buby";
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "25.05";
