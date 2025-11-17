@@ -11,6 +11,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    services.upower.enable = true;
+
     programs.hyprland = {
       enable = true;
       withUWSM = true;
@@ -26,6 +28,7 @@ in {
       discord
       firefox
       ghostty
+      hyprpanel
       mpv
       signal-desktop-bin
     ];
