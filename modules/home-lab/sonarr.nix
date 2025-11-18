@@ -28,6 +28,9 @@ in {
         image = "ghcr.io/linuxserver/sonarr:4.0.16";
         environment = {
           TZ = "America/New_York";
+          PUID = "1000";
+          GUID = "1000";
+          SONARR__AUTH__APIKEY_FILE = "/run/keys/sonarr-apikey.secret";
           SONARR__AUTH__ENABLED = "False";
           SONARR__AUTH__METHOD = "External";
           SONARR__AUTH__REQUIRED = "False";

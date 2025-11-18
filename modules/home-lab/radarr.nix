@@ -28,6 +28,9 @@ in {
         image = "ghcr.io/linuxserver/radarr:5.28.0";
         environment = {
           TZ = "America/New_York";
+          PUID = "1000";
+          GUID = "1000";
+          RADARR__AUTH__APIKEY_FILE = "/run/keys/radarr-apikey.secret";
           RADARR__AUTH__ENABLED = "False";
           RADARR__AUTH__METHOD = "External";
           RADARR__AUTH__REQUIRED = "False";
