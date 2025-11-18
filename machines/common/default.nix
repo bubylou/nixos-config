@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -24,6 +28,12 @@
   };
 
   services.tailscale.enable = true;
+  networking.firewall = {
+    enable = true;
+    trustedInterfaces = ["tailscale0"];
+    allowedTCPPorts = config.services.openssh.ports;
+    allowedUDPPorts = [config.services.tailscale.port];
+  };
 
   security.sudo.extraRules = [
     {
