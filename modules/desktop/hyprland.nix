@@ -25,12 +25,20 @@ in {
     environment.systemPackages = with pkgs; [
       brave
       bitwarden-desktop
+      cliphist
       discord
       firefox
+      fuzzel
       ghostty
+      hypridle
+      hyprlock
       hyprpanel
+      hyprpaper
+      hyprpolkitagent
       mpv
+      rofi-wayland
       signal-desktop-bin
+      xdg-desktop-portal-hyprland
     ];
   };
 }

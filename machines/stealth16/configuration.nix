@@ -4,12 +4,16 @@
 
     $terminal = ghostty
     $fileManager = yazi
-    $menu = fuzzel
+    $menu = rofi -show run
 
-    exec-once = hyprpanel &
+    exec-once = wl-paste --watch cliphist store & hyprpanel
+    exec-once = systemctl --user enable --now hypridle.service
+    exec-once = systemctl --user enable --now hyprpaper.service
 
     env = XCURSOR_SIZE,24
     env = HYPRCURSOR_SIZE,24
+    env = LIBVA_DRIVER_NAME,nvidia
+    env = __GLX_VENDOR_LIBRARY_NAME,nvidia
 
     general {
         gaps_in = 5
@@ -106,7 +110,6 @@
         name = epic-mouse-v1
         sensitivity = -0.5
     }
-
 
     $mainMod = ALT
 
