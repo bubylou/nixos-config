@@ -28,6 +28,9 @@ in {
         image = "ghcr.io/linuxserver/radarr:5.28.0";
         environment = {
           TZ = "America/New_York";
+          RADARR__AUTH__ENABLED = "False";
+          RADARR__AUTH__METHOD = "External";
+          RADARR__AUTH__REQUIRED = "False";
         };
         ports = [
           "${toString cfg.port}:7878"
