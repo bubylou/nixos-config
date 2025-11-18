@@ -121,18 +121,19 @@
         imports = [
           home-manager.nixosModules.home-manager
           nvf.nixosModules.nvf
+          ./machines/common/games.nix
           ./machines/common/neovim.nix
           ./machines/common/nvidia.nix
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.buby = ./machines/common/home.nix;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.buby = ./machines/common/home.nix;
+            };
           }
         ];
       };
-      xps13 = {...}: {
-        deployment.allowLocalDeployment = true;
-      };
+      xps13 = {...}: {};
     };
   };
 }

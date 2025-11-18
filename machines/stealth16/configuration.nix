@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   home-lab = {
     ssh = {
       enable = true;
@@ -7,21 +7,6 @@
   };
 
   desktop.gnome.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    heroic
-    mangohud
-    prismlauncher
-    qmk
-    qmk-udev-rules
-    wine
-  ];
-  programs.gamemode.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    extraCompatPackages = with pkgs; [proton-ge-bin];
-  };
 
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "buby";
