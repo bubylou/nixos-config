@@ -21,5 +21,7 @@
     };
   };
 
+  networking.interfaces.wlp0s20f3.wakeOnLan.enable = true;
+
   system.stateVersion = "25.05";
 }
