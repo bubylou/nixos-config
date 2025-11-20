@@ -12,6 +12,7 @@
     ./lldap.nix
     ./minecraft.nix
     ./prowlarr.nix
+    ./qbittorrent.nix
     ./radarr.nix
     ./sonarr.nix
     ./ssh.nix

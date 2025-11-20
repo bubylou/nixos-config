@@ -58,6 +58,10 @@
 
     prowlarr.enable = true;
     radarr.enable = true;
+    qbittorrent = {
+      enable = true;
+      port = 8081;
+    };
     sonarr.enable = true;
 
     ssh = {
