@@ -9,6 +9,7 @@
     ./caddy.nix
     ./gatus.nix
     ./jellyfin.nix
+    ./jellyseerr.nix
     ./lldap.nix
     ./minecraft.nix
     ./prowlarr.nix

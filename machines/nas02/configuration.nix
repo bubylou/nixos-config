@@ -42,6 +42,7 @@
 
     gatus.enable = true;
     jellyfin.enable = true;
+    jellyseerr.enable = true;
 
     lldap = {
       enable = true;
