@@ -7,6 +7,9 @@
     nameservers = ["::1"];
 
     firewall = {
+      allowedTCPPorts = [
+        config.home-lab.lldap.ldapPort
+      ];
       allowedUDPPorts = [
         config.services.blocky.settings.ports.dns
         config.services.minecraft-servers.servers.paper.serverProperties.server-port
