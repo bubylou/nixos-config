@@ -30,7 +30,7 @@
       enable = true;
       adBlock = true;
       customDNS = {
-        "bubylou.com" = "192.168.1.90";
+        "bubylou.com" = "192.168.1.11";
         "sugondeez.com" = "100.78.117.28";
       };
     };
@@ -56,6 +56,7 @@
       whitelist = {Bubylou = "7fd923ac-5f25-456c-bc0b-48b0bed3bd40";};
     };
 
+    prowlarr.enable = true;
     radarr.enable = true;
     sonarr.enable = true;
 
