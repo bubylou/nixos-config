@@ -21,6 +21,8 @@
     options = ["x-systemd.automount" "noauto"];
   };
 
+  hardware.nvidia-container-toolkit.enable = true;
+
   home-lab = {
     domain = "sugondeez.com";
 
