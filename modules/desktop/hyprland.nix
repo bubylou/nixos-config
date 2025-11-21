@@ -26,7 +26,6 @@ in {
       brave
       bitwarden-desktop
       cliphist
-      discord
       firefox
       fuzzel
       ghostty
@@ -38,6 +37,7 @@ in {
       mpv
       rofi-wayland
       signal-desktop-bin
+      webcord
       xdg-desktop-portal-hyprland
     ];
   };
