@@ -60,6 +60,7 @@
 
         networking.hostName = name;
       };
+
       mini01 = {...}: {};
 
       nas02 = {config, ...}: {
@@ -121,7 +122,6 @@
         };
         imports = [
           {nixpkgs.overlays = [inputs.nix-minecraft.overlay];}
-          ./machines/common/nvidia.nix
         ];
       };
 
@@ -132,7 +132,6 @@
           nvf.nixosModules.nvf
           ./machines/common/games.nix
           ./machines/common/neovim.nix
-          ./machines/common/nvidia.nix
           {
             home-manager = {
               useGlobalPkgs = true;

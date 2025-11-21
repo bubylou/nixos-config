@@ -174,6 +174,22 @@
     windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0
   '';
 in {
+  desktop.hyprland.enable = true;
+
+  hardware = {
+    graphics.enable = true;
+    nvidia-container-toolkit.enable = true;
+    nvidia = {
+      open = true;
+      modesetting.enable = true;
+      prime = {
+        sync.enable = true;
+        amdgpuBusId = "PCI:197:0:0";
+        nvidiaBusId = "PCI:195:0:0";
+      };
+    };
+  };
+
   home-lab = {
     ssh = {
       enable = true;
@@ -181,20 +197,26 @@ in {
     };
   };
 
-  desktop.hyprland.enable = true;
+  # For using Steam Input on Wayland
+  programs.steam.extest.enable = true;
 
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.hyprland}/bin/hyprland -c ${hyprlandConfig}";
-        user = "buby";
+  services = {
+    # also wayland drivers
+    xserver.videoDrivers = ["amdgpu" "nvidia"];
+
+    tlp.enable = true;
+
+    greetd = {
+      enable = true;
+      settings = rec {
+        default_session = initial_session;
+        initial_session = {
+          command = "${pkgs.hyprland}/bin/hyprland -c ${hyprlandConfig}";
+          user = "buby";
+        };
       };
-      default_session = initial_session;
     };
   };
-
-  services.tlp.enable = true;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "25.05";
