@@ -3,10 +3,10 @@
   config,
   ...
 }: let
-  cfg = config.home-lab.jellyfin;
+  cfg = config.home-lab.sonarr;
 in {
-  options.home-lab.jellyfin = {
-    enable = lib.mkEnableOption "enables jellyfin server";
+  options.home-lab.sonarr = {
+    enable = lib.mkEnableOption "enables sonarr server";
 
     host = lib.mkOption {
       type = lib.types.str;
@@ -16,35 +16,38 @@ in {
 
     port = lib.mkOption {
       type = lib.types.int;
-      default = 8096;
-      example = 8096;
+      default = 8989;
+      example = 8989;
     };
   };
 
   config = lib.mkIf (cfg.enable
     && config.home-lab.containerSupport) {
     virtualisation.oci-containers.containers = {
-      jellyfin = {
-        image = "ghcr.io/linuxserver/jellyfin:10.11.3";
-        extraOptions = ["--device" "nvidia.com/gpu=all"];
+      sonarr = {
+        image = "ghcr.io/linuxserver/sonarr:4.0.16";
         environment = {
           TZ = "America/New_York";
           PUID = "1000";
           GUID = "1000";
+          SONARR__AUTH__APIKEY_FILE = "/run/keys/sonarr-apikey.secret";
+          SONARR__AUTH__ENABLED = "False";
+          SONARR__AUTH__METHOD = "External";
+          SONARR__AUTH__REQUIRED = "False";
         };
         ports = [
-          "${toString cfg.port}:8096"
+          "${toString cfg.port}:8989"
         ];
         volumes = [
-          "jellyfin_data:/config"
-          "/mnt/nfs/share/Movies:/data/movies"
-          "/mnt/nfs/share/TV:/data/tv"
+          "sonarr_data:/config"
+          "/mnt/nfs/share/Downloads:/downloads"
+          "/mnt/nfs/share/TV:/tv"
         ];
       };
     };
 
     services.caddy = {
-      virtualHosts."jellyfin.${config.home-lab.domain}" = {
+      virtualHosts."sonarr.${config.home-lab.domain}" = {
         useACMEHost = "${config.home-lab.domain}";
         extraConfig = ''
           import auth
@@ -55,7 +58,7 @@ in {
 
     services.gatus.settings.endpoints = [
       {
-        name = "jellyfin";
+        name = "sonarr";
         url = "http://${cfg.host}:${toString cfg.port}";
         interval = "1m";
         client.dns-resolver = "tcp://127.0.0.1:53";

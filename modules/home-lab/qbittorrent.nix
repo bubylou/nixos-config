@@ -3,10 +3,10 @@
   config,
   ...
 }: let
-  cfg = config.home-lab.jellyfin;
+  cfg = config.home-lab.qbittorrent;
 in {
-  options.home-lab.jellyfin = {
-    enable = lib.mkEnableOption "enables jellyfin server";
+  options.home-lab.qbittorrent = {
+    enable = lib.mkEnableOption "enables qbittorrent server";
 
     host = lib.mkOption {
       type = lib.types.str;
@@ -16,35 +16,36 @@ in {
 
     port = lib.mkOption {
       type = lib.types.int;
-      default = 8096;
-      example = 8096;
+      default = 8080;
+      example = 8080;
     };
   };
 
   config = lib.mkIf (cfg.enable
     && config.home-lab.containerSupport) {
     virtualisation.oci-containers.containers = {
-      jellyfin = {
-        image = "ghcr.io/linuxserver/jellyfin:10.11.3";
-        extraOptions = ["--device" "nvidia.com/gpu=all"];
+      qbittorrent = {
+        image = "ghcr.io/hotio/qbittorrent:release-5.1.4";
         environment = {
           TZ = "America/New_York";
           PUID = "1000";
           GUID = "1000";
+          VPN_ENABLED = "True";
+          VPN_CONFIG = "wg0";
         };
         ports = [
-          "${toString cfg.port}:8096"
+          "${toString cfg.port}:8080"
         ];
         volumes = [
-          "jellyfin_data:/config"
-          "/mnt/nfs/share/Movies:/data/movies"
-          "/mnt/nfs/share/TV:/data/tv"
+          "qbittorrent_data:/config"
+          "/mnt/nfs/share/Downloads:/downloads"
+          "/run/keys/wg0.conf:/config/wireguard/wg0.conf:ro"
         ];
       };
     };
 
     services.caddy = {
-      virtualHosts."jellyfin.${config.home-lab.domain}" = {
+      virtualHosts."qbittorrent.${config.home-lab.domain}" = {
         useACMEHost = "${config.home-lab.domain}";
         extraConfig = ''
           import auth
@@ -55,7 +56,7 @@ in {
 
     services.gatus.settings.endpoints = [
       {
-        name = "jellyfin";
+        name = "qbittorrent";
         url = "http://${cfg.host}:${toString cfg.port}";
         interval = "1m";
         client.dns-resolver = "tcp://127.0.0.1:53";

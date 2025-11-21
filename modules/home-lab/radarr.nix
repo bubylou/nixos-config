@@ -3,10 +3,10 @@
   config,
   ...
 }: let
-  cfg = config.home-lab.jellyfin;
+  cfg = config.home-lab.radarr;
 in {
-  options.home-lab.jellyfin = {
-    enable = lib.mkEnableOption "enables jellyfin server";
+  options.home-lab.radarr = {
+    enable = lib.mkEnableOption "enables radarr server";
 
     host = lib.mkOption {
       type = lib.types.str;
@@ -16,35 +16,38 @@ in {
 
     port = lib.mkOption {
       type = lib.types.int;
-      default = 8096;
-      example = 8096;
+      default = 7878;
+      example = 7878;
     };
   };
 
   config = lib.mkIf (cfg.enable
     && config.home-lab.containerSupport) {
     virtualisation.oci-containers.containers = {
-      jellyfin = {
-        image = "ghcr.io/linuxserver/jellyfin:10.11.3";
-        extraOptions = ["--device" "nvidia.com/gpu=all"];
+      radarr = {
+        image = "ghcr.io/linuxserver/radarr:5.28.0";
         environment = {
           TZ = "America/New_York";
           PUID = "1000";
           GUID = "1000";
+          RADARR__AUTH__APIKEY_FILE = "/run/keys/radarr-apikey.secret";
+          RADARR__AUTH__ENABLED = "False";
+          RADARR__AUTH__METHOD = "External";
+          RADARR__AUTH__REQUIRED = "False";
         };
         ports = [
-          "${toString cfg.port}:8096"
+          "${toString cfg.port}:7878"
         ];
         volumes = [
-          "jellyfin_data:/config"
-          "/mnt/nfs/share/Movies:/data/movies"
-          "/mnt/nfs/share/TV:/data/tv"
+          "radarr_data:/config"
+          "/mnt/nfs/share/Downloads:/downloads"
+          "/mnt/nfs/share/Movies:/movies"
         ];
       };
     };
 
     services.caddy = {
-      virtualHosts."jellyfin.${config.home-lab.domain}" = {
+      virtualHosts."radarr.${config.home-lab.domain}" = {
         useACMEHost = "${config.home-lab.domain}";
         extraConfig = ''
           import auth
@@ -55,7 +58,7 @@ in {
 
     services.gatus.settings.endpoints = [
       {
-        name = "jellyfin";
+        name = "radarr";
         url = "http://${cfg.host}:${toString cfg.port}";
         interval = "1m";
         client.dns-resolver = "tcp://127.0.0.1:53";

@@ -3,10 +3,10 @@
   config,
   ...
 }: let
-  cfg = config.home-lab.jellyfin;
+  cfg = config.home-lab.prowlarr;
 in {
-  options.home-lab.jellyfin = {
-    enable = lib.mkEnableOption "enables jellyfin server";
+  options.home-lab.prowlarr = {
+    enable = lib.mkEnableOption "enables prowlarr server";
 
     host = lib.mkOption {
       type = lib.types.str;
@@ -16,35 +16,36 @@ in {
 
     port = lib.mkOption {
       type = lib.types.int;
-      default = 8096;
-      example = 8096;
+      default = 9696;
+      example = 9696;
     };
   };
 
   config = lib.mkIf (cfg.enable
     && config.home-lab.containerSupport) {
     virtualisation.oci-containers.containers = {
-      jellyfin = {
-        image = "ghcr.io/linuxserver/jellyfin:10.11.3";
-        extraOptions = ["--device" "nvidia.com/gpu=all"];
+      prowlarr = {
+        image = "ghcr.io/linuxserver/prowlarr:2.3.0";
         environment = {
           TZ = "America/New_York";
           PUID = "1000";
           GUID = "1000";
+          PROWARR__AUTH__APIKEY_FILE = "/run/keys/prowlarr-apikey.secret";
+          PROWARR__AUTH__ENABLED = "False";
+          PROWARR__AUTH__METHOD = "External";
+          PROWARR__AUTH__REQUIRED = "False";
         };
         ports = [
-          "${toString cfg.port}:8096"
+          "${toString cfg.port}:9696"
         ];
         volumes = [
-          "jellyfin_data:/config"
-          "/mnt/nfs/share/Movies:/data/movies"
-          "/mnt/nfs/share/TV:/data/tv"
+          "prowlarr_data:/config"
         ];
       };
     };
 
     services.caddy = {
-      virtualHosts."jellyfin.${config.home-lab.domain}" = {
+      virtualHosts."prowlarr.${config.home-lab.domain}" = {
         useACMEHost = "${config.home-lab.domain}";
         extraConfig = ''
           import auth
@@ -55,7 +56,7 @@ in {
 
     services.gatus.settings.endpoints = [
       {
-        name = "jellyfin";
+        name = "prowlarr";
         url = "http://${cfg.host}:${toString cfg.port}";
         interval = "1m";
         client.dns-resolver = "tcp://127.0.0.1:53";

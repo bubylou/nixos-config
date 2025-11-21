@@ -3,10 +3,10 @@
   config,
   ...
 }: let
-  cfg = config.home-lab.jellyfin;
+  cfg = config.home-lab.jellyseerr;
 in {
-  options.home-lab.jellyfin = {
-    enable = lib.mkEnableOption "enables jellyfin server";
+  options.home-lab.jellyseerr = {
+    enable = lib.mkEnableOption "enables jellyseerr server";
 
     host = lib.mkOption {
       type = lib.types.str;
@@ -16,35 +16,32 @@ in {
 
     port = lib.mkOption {
       type = lib.types.int;
-      default = 8096;
-      example = 8096;
+      default = 5055;
+      example = 5055;
     };
   };
 
   config = lib.mkIf (cfg.enable
     && config.home-lab.containerSupport) {
     virtualisation.oci-containers.containers = {
-      jellyfin = {
-        image = "ghcr.io/linuxserver/jellyfin:10.11.3";
-        extraOptions = ["--device" "nvidia.com/gpu=all"];
+      jellyseerr = {
+        image = "ghcr.io/hotio/jellyseerr:release-2.7.3";
         environment = {
           TZ = "America/New_York";
           PUID = "1000";
           GUID = "1000";
         };
         ports = [
-          "${toString cfg.port}:8096"
+          "${toString cfg.port}:5055"
         ];
         volumes = [
-          "jellyfin_data:/config"
-          "/mnt/nfs/share/Movies:/data/movies"
-          "/mnt/nfs/share/TV:/data/tv"
+          "jellyseerr_data:/config"
         ];
       };
     };
 
     services.caddy = {
-      virtualHosts."jellyfin.${config.home-lab.domain}" = {
+      virtualHosts."jellyseerr.${config.home-lab.domain}" = {
         useACMEHost = "${config.home-lab.domain}";
         extraConfig = ''
           import auth
@@ -55,7 +52,7 @@ in {
 
     services.gatus.settings.endpoints = [
       {
-        name = "jellyfin";
+        name = "jellyseerr";
         url = "http://${cfg.host}:${toString cfg.port}";
         interval = "1m";
         client.dns-resolver = "tcp://127.0.0.1:53";
