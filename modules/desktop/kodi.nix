@@ -22,19 +22,22 @@ in {
     services.greetd = {
       enable = true;
       settings = rec {
+        default_session = initial_session;
         initial_session = {
           command = "${pkgs.kodi-gbm.withPackages
             (kodiPkgs:
               with kodiPkgs; [
                 bluetooth-manager
+                inputstream-rtmp
+                inputstream-ffmpegdirect
                 invidious
                 jellyfin
                 sendtokodi
+                upnext
                 youtube
               ])}/bin/kodi-standalone";
           user = "kodi";
         };
-        default_session = initial_session;
       };
     };
 
