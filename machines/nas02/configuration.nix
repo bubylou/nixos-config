@@ -19,7 +19,7 @@
 
   boot.supportedFilesystems = ["nfs"];
   fileSystems."/mnt/nfs/share" = {
-    device = "nas01.bubylou.com:/srv/share";
+    device = "nas01:/srv/share";
     fsType = "nfs";
     options = ["x-systemd.automount" "noauto"];
   };

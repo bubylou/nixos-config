@@ -63,6 +63,7 @@
 
       mini01 = {...}: {};
 
+      nas01 = {...}: {};
       nas02 = {config, ...}: {
         deployment.keys = {
           "acme-cloudflare-credentials.secret" = {
