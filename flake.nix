@@ -63,8 +63,7 @@
 
       mini01 = {...}: {};
 
-      nas01 = {...}: {};
-      nas02 = {config, ...}: {
+      nas01 = {config, ...}: {
         deployment.keys = {
           "acme-cloudflare-credentials.secret" = {
             keyFile = "/etc/nixos/secrets/acme-cloudflare-credentials.secret";
@@ -103,14 +102,6 @@
             permissions = "0440";
             destDir = "/etc/nixos/secrets";
           };
-
-          "lldap-bind-credentials.secret" = {
-            keyFile = "/etc/nixos/secrets/lldap-bind-credentials.secret";
-            user = config.services.authelia.instances.main.user;
-            group = config.services.authelia.instances.main.group;
-            permissions = "0440";
-            destDir = "/etc/nixos/secrets";
-          };
           "radarr-apikey.secret" = {
             keyFile = "/etc/nixos/secrets/radarr-apikey.secret";
           };
@@ -121,9 +112,17 @@
             keyFile = "/etc/nixos/secrets/wg0.conf";
           };
         };
-        imports = [
-          {nixpkgs.overlays = [inputs.nix-minecraft.overlay];}
-        ];
+      };
+
+      nas02 = {config, ...}: {
+        deployment.keys = {
+          "acme-cloudflare-credentials.secret" = {
+            keyFile = "/etc/nixos/secrets/acme-cloudflare-credentials.secret";
+            user = "acme";
+            group = "acme";
+          };
+        };
+        imports = [{nixpkgs.overlays = [inputs.nix-minecraft.overlay];}];
       };
 
       stealth16 = {...}: {
@@ -142,6 +141,7 @@
           }
         ];
       };
+
       xps13 = {...}: {};
     };
   };
