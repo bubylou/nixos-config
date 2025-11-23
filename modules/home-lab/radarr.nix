@@ -19,6 +19,12 @@ in {
       default = 7878;
       example = 7878;
     };
+
+    volumes = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = ["radarr_data:/config"];
+      example = ["radarr_data:/config" "/mnt/nfs:/downloads"];
+    };
   };
 
   config = lib.mkIf (cfg.enable
@@ -38,11 +44,7 @@ in {
         ports = [
           "${toString cfg.port}:7878"
         ];
-        volumes = [
-          "radarr_data:/config"
-          "/mnt/nfs/share/Downloads:/downloads"
-          "/mnt/nfs/share/Movies:/movies"
-        ];
+        volumes = cfg.volumes;
       };
     };
 

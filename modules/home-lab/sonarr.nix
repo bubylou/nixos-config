@@ -19,6 +19,12 @@ in {
       default = 8989;
       example = 8989;
     };
+
+    volumes = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = ["sonarr_data:/config"];
+      example = ["sonarr_data:/config" "/mnt/nfs:/downloads"];
+    };
   };
 
   config = lib.mkIf (cfg.enable
@@ -38,11 +44,7 @@ in {
         ports = [
           "${toString cfg.port}:8989"
         ];
-        volumes = [
-          "sonarr_data:/config"
-          "/mnt/nfs/share/Downloads:/downloads"
-          "/mnt/nfs/share/TV:/tv"
-        ];
+        volumes = cfg.volumes;
       };
     };
 

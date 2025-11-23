@@ -19,6 +19,19 @@ in {
       default = 8080;
       example = 8080;
     };
+
+    volumes = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        "qbittorrent_data:/config"
+        "/run/keys/wg0.conf:/config/wireguard/wg0.conf:ro"
+      ];
+      example = [
+        "qbittorrent_data:/config"
+        "/run/keys/wg0.conf:/config/wireguard/wg0.conf:ro"
+        "/mnt/nfs:/downloads"
+      ];
+    };
   };
 
   config = lib.mkIf (cfg.enable
@@ -36,11 +49,7 @@ in {
         ports = [
           "${toString cfg.port}:8080"
         ];
-        volumes = [
-          "qbittorrent_data:/config"
-          "/mnt/nfs/share/Downloads:/downloads"
-          "/run/keys/wg0.conf:/config/wireguard/wg0.conf:ro"
-        ];
+        volumes = cfg.volumes;
       };
     };
 

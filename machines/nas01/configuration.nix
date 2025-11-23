@@ -30,9 +30,30 @@
     };
 
     prowlarr.enable = true;
-    radarr.enable = true;
-    qbittorrent.enable = true;
-    sonarr.enable = true;
+    qbittorrent = {
+      enable = true;
+      volumes = [
+        "qbittorrent_data:/config"
+        "/run/keys/wg0.conf:/config/wireguard/wg0.conf:ro"
+        "/srv/share/Downloads:/downloads"
+      ];
+    };
+    radarr = {
+      enable = true;
+      volumes = [
+        "radarr_data:/config"
+        "/srv/share/Downloads:/downloads"
+        "/srv/share/Movies:/movies"
+      ];
+    };
+    sonarr = {
+      enable = true;
+      volumes = [
+        "sonarr_data:/config"
+        "/srv/share/Downloads:/downloads"
+        "/srv/share/TV:/tv"
+      ];
+    };
 
     ssh = {
       enable = true;
