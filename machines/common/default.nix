@@ -3,8 +3,10 @@
   config,
   ...
 }: {
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   programs.zsh.enable = true;
   time.timeZone = "America/New_York";
@@ -47,12 +49,15 @@
     }
   ];
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
-
   nixpkgs.config.allowUnfree = true;
-  nix.settings.trusted-users = ["root" "@wheel"];
+
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+    settings.experimental-features = ["nix-command" "flakes"];
+    settings.trusted-users = ["root" "@wheel"];
+  };
 }
