@@ -27,45 +27,44 @@ in {
     };
   };
 
-  config = lib.mkIf (cfg.enable
-    && config.home-lab.containerSupport) {
-    virtualisation.oci-containers.containers = {
-      radarr = {
-        image = "ghcr.io/linuxserver/radarr:5.28.0";
-        environment = {
-          TZ = "America/New_York";
-          PUID = "1000";
-          GUID = "1000";
-          RADARR__AUTH__APIKEY_FILE = "/run/keys/radarr-apikey.secret";
-          RADARR__AUTH__ENABLED = "False";
-          RADARR__AUTH__METHOD = "External";
-          RADARR__AUTH__REQUIRED = "False";
+  config = lib.mkIf cfg.enable {
+    virtualisation.oci-containers.containers.radarr = {
+      image = "ghcr.io/linuxserver/radarr:5.28.0";
+      environment = {
+        TZ = "America/New_York";
+        PUID = "1000";
+        GUID = "1000";
+        RADARR__AUTH__APIKEY_FILE = "/run/keys/radarr-apikey.secret";
+        RADARR__AUTH__ENABLED = "False";
+        RADARR__AUTH__METHOD = "External";
+        RADARR__AUTH__REQUIRED = "False";
+      };
+      ports = [
+        "${toString cfg.port}:7878"
+      ];
+      inherit (cfg) volumes;
+    };
+
+    services = {
+      caddy = {
+        virtualHosts."radarr.${config.home-lab.domain}" = {
+          useACMEHost = config.home-lab.domain;
+          extraConfig = ''
+            import auth
+            reverse_proxy http://${cfg.host}:${toString cfg.port}
+          '';
         };
-        ports = [
-          "${toString cfg.port}:7878"
-        ];
-        volumes = cfg.volumes;
       };
-    };
 
-    services.caddy = {
-      virtualHosts."radarr.${config.home-lab.domain}" = {
-        useACMEHost = "${config.home-lab.domain}";
-        extraConfig = ''
-          import auth
-          reverse_proxy http://${cfg.host}:${toString cfg.port}
-        '';
-      };
+      gatus.settings.endpoints = [
+        {
+          name = "radarr";
+          url = "http://${cfg.host}:${toString cfg.port}";
+          interval = "1m";
+          client.dns-resolver = "tcp://127.0.0.1:53";
+          conditions = ["[STATUS] == 200" "[RESPONSE_TIME] < 100"];
+        }
+      ];
     };
-
-    services.gatus.settings.endpoints = [
-      {
-        name = "radarr";
-        url = "http://${cfg.host}:${toString cfg.port}";
-        interval = "1m";
-        client.dns-resolver = "tcp://127.0.0.1:53";
-        conditions = ["[STATUS] == 200" "[RESPONSE_TIME] < 100"];
-      }
-    ];
   };
 }

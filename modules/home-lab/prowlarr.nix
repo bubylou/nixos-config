@@ -19,10 +19,14 @@ in {
       default = 9696;
       example = 9696;
     };
+    volumes = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = ["prowlarr_data" "/config"];
+      example = ["prowlarr_data" "/config"];
+    };
   };
 
-  config = lib.mkIf (cfg.enable
-    && config.home-lab.containerSupport) {
+  config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers = {
       prowlarr = {
         image = "ghcr.io/linuxserver/prowlarr:2.3.0";
@@ -38,30 +42,30 @@ in {
         ports = [
           "${toString cfg.port}:9696"
         ];
-        volumes = [
-          "prowlarr_data:/config"
-        ];
+        inherit (cfg) volumes;
       };
     };
 
-    services.caddy = {
-      virtualHosts."prowlarr.${config.home-lab.domain}" = {
-        useACMEHost = "${config.home-lab.domain}";
-        extraConfig = ''
-          import auth
-          reverse_proxy http://${cfg.host}:${toString cfg.port}
-        '';
+    services = {
+      caddy = {
+        virtualHosts."prowlarr.${config.home-lab.domain}" = {
+          useACMEHost = config.home-lab.domain;
+          extraConfig = ''
+            import auth
+            reverse_proxy http://${cfg.host}:${toString cfg.port}
+          '';
+        };
       };
-    };
 
-    services.gatus.settings.endpoints = [
-      {
-        name = "prowlarr";
-        url = "http://${cfg.host}:${toString cfg.port}";
-        interval = "1m";
-        client.dns-resolver = "tcp://127.0.0.1:53";
-        conditions = ["[STATUS] == 200" "[RESPONSE_TIME] < 100"];
-      }
-    ];
+      gatus.settings.endpoints = [
+        {
+          name = "prowlarr";
+          url = "http://${cfg.host}:${toString cfg.port}";
+          interval = "1m";
+          client.dns-resolver = "tcp://127.0.0.1:53";
+          conditions = ["[STATUS] == 200" "[RESPONSE_TIME] < 100"];
+        }
+      ];
+    };
   };
 }

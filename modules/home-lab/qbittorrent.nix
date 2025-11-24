@@ -34,43 +34,42 @@ in {
     };
   };
 
-  config = lib.mkIf (cfg.enable
-    && config.home-lab.containerSupport) {
-    virtualisation.oci-containers.containers = {
-      qbittorrent = {
-        image = "ghcr.io/hotio/qbittorrent:release-5.1.4";
-        environment = {
-          TZ = "America/New_York";
-          PUID = "1000";
-          GUID = "1000";
-          VPN_ENABLED = "True";
-          VPN_CONFIG = "wg0";
+  config = lib.mkIf cfg.enable {
+    virtualisation.oci-containers.containers.qbittorrent = {
+      image = "ghcr.io/hotio/qbittorrent:release-5.1.4";
+      environment = {
+        TZ = "America/New_York";
+        PUID = "1000";
+        GUID = "1000";
+        VPN_ENABLED = "True";
+        VPN_CONFIG = "wg0";
+      };
+      ports = [
+        "${toString cfg.port}:8080"
+      ];
+      inherit (cfg) volumes;
+    };
+
+    services = {
+      caddy = {
+        virtualHosts."qbittorrent.${config.home-lab.domain}" = {
+          useACMEHost = config.home-lab.domain;
+          extraConfig = ''
+            import auth
+            reverse_proxy http://${cfg.host}:${toString cfg.port}
+          '';
         };
-        ports = [
-          "${toString cfg.port}:8080"
-        ];
-        volumes = cfg.volumes;
       };
-    };
 
-    services.caddy = {
-      virtualHosts."qbittorrent.${config.home-lab.domain}" = {
-        useACMEHost = "${config.home-lab.domain}";
-        extraConfig = ''
-          import auth
-          reverse_proxy http://${cfg.host}:${toString cfg.port}
-        '';
-      };
+      gatus.settings.endpoints = [
+        {
+          name = "qbittorrent";
+          url = "http://${cfg.host}:${toString cfg.port}";
+          interval = "1m";
+          client.dns-resolver = "tcp://127.0.0.1:53";
+          conditions = ["[STATUS] == 200" "[RESPONSE_TIME] < 100"];
+        }
+      ];
     };
-
-    services.gatus.settings.endpoints = [
-      {
-        name = "qbittorrent";
-        url = "http://${cfg.host}:${toString cfg.port}";
-        interval = "1m";
-        client.dns-resolver = "tcp://127.0.0.1:53";
-        conditions = ["[STATUS] == 200" "[RESPONSE_TIME] < 100"];
-      }
-    ];
   };
 }

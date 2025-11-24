@@ -22,13 +22,11 @@
   options.home-lab = {
     domain = lib.mkOption {
       type = lib.types.str;
-      description = "The base domain for the home-lab";
       default = "example.com";
     };
 
     containerSupport = lib.mkOption {
       type = lib.types.bool;
-      description = "Whether to enable container support";
       default = true;
     };
   };

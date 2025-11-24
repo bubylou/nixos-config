@@ -19,10 +19,15 @@ in {
       default = 8096;
       example = 8096;
     };
+
+    volumes = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = ["jellyfin_data:/config"];
+      example = ["jellyfin_data:/config" "/mnt/nfs:/movies"];
+    };
   };
 
-  config = lib.mkIf (cfg.enable
-    && config.home-lab.containerSupport) {
+  config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers = {
       jellyfin = {
         image = "ghcr.io/linuxserver/jellyfin:10.11.3";
@@ -35,17 +40,13 @@ in {
         ports = [
           "${toString cfg.port}:8096"
         ];
-        volumes = [
-          "jellyfin_data:/config"
-          "/mnt/nfs/share/Movies:/data/movies"
-          "/mnt/nfs/share/TV:/data/tv"
-        ];
+        inherit (cfg) volumes;
       };
     };
 
     services.caddy = {
       virtualHosts."jellyfin.${config.home-lab.domain}" = {
-        useACMEHost = "${config.home-lab.domain}";
+        useACMEHost = config.home-lab.domain;
         extraConfig = ''
           import auth
           reverse_proxy http://${cfg.host}:${toString cfg.port}
