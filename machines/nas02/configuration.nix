@@ -1,4 +1,7 @@
-{config, ...}: {
+{config, ...}: let
+  nas01 = "100.93.143.35";
+  nas02 = "100.78.117.28";
+in {
   boot.supportedFilesystems = ["nfs"];
   fileSystems."/mnt/nfs/share" = {
     device = "nas01:/srv/share";
@@ -20,8 +23,10 @@
       enable = true;
       adBlock = true;
       customDNS = {
-        "bubylou.com" = "100.93.143.35";
-        "sugondeez.com" = "100.78.117.28";
+        "bubylou.com" = nas01;
+        "jellyfin.bubylou.com" = nas02;
+        "jellyseerr.bubylou.com" = nas02;
+        "status.bubylou.com" = nas02;
       };
     };
 
