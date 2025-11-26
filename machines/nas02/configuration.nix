@@ -36,7 +36,14 @@ in {
     };
 
     gatus.enable = true;
-    jellyfin.enable = true;
+    jellyfin = {
+      enable = true;
+      volumes = [
+        "jellyfin_data:/config"
+        "/mnt/nfs/share/Movies:/movies"
+        "/mnt/nfs/share/TV:/tv"
+      ];
+    };
     jellyseerr.enable = true;
 
     ssh = {

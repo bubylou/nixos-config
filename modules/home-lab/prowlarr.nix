@@ -21,8 +21,8 @@ in {
     };
     volumes = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = ["prowlarr_data" "/config"];
-      example = ["prowlarr_data" "/config"];
+      default = ["prowlarr_data:/config"];
+      example = ["prowlarr_data:/config"];
     };
   };
 
