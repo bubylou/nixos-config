@@ -91,11 +91,11 @@ in {
             default_policy = "two_factor";
             rules = [
               {
-                domain_regex = "(jellyfin|status).${config.home-lab.domain}$";
+                domain_regex = "(jellyfin|jellyseerr|status).${config.home-lab.domain}$";
                 policy = "bypass";
               }
               {
-                domain_regex = "(jellyseerr|mealie).${config.home-lab.domain}$";
+                domain = "mealie.${config.home-lab.domain}";
                 policy = "one_factor";
               }
             ];

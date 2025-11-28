@@ -18,6 +18,12 @@ in {
 
   home-lab = {
     domain = "bubylou.com";
+    authelia.enable = true;
+    lldap = {
+      enable = false;
+      ldapBaseDN = "dc=bubylou,dc=com";
+      ldapHost = nas01;
+    };
 
     blocky = {
       enable = true;
@@ -56,6 +62,10 @@ in {
     nameservers = ["::1"];
 
     firewall = {
+      allowedTCPPorts = [
+        443
+        80
+      ];
       allowedUDPPorts = [
         config.services.blocky.settings.ports.dns
       ];

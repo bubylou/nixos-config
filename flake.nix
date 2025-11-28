@@ -64,69 +64,79 @@
       mini01 = {...}: {};
 
       nas01 = {config, ...}: {
-        deployment.keys = {
-          "acme-cloudflare-credentials.secret" = {
-            keyFile = "/etc/nixos/secrets/acme-cloudflare-credentials.secret";
-            user = "acme";
-            group = "acme";
-          };
+        deployment = {
+          tags = ["server"];
+          keys = {
+            "acme-cloudflare-credentials.secret" = {
+              keyFile = "/etc/nixos/secrets/acme-cloudflare-credentials.secret";
+              user = "acme";
+              group = "acme";
+            };
 
-          "authelia-jwt.secret" = {
-            keyFile = "/etc/nixos/secrets/authelia-jwt.secret";
-            user = config.services.authelia.instances.main.user;
-            group = config.services.authelia.instances.main.group;
-            permissions = "0440";
-            destDir = "/etc/nixos/secrets";
-          };
+            "authelia-jwt.secret" = {
+              keyFile = "/etc/nixos/secrets/authelia-jwt.secret";
+              user = config.services.authelia.instances.main.user;
+              group = config.services.authelia.instances.main.group;
+              permissions = "0440";
+              destDir = "/etc/nixos/secrets";
+            };
 
-          "authelia-session.secret" = {
-            keyFile = "/etc/nixos/secrets/authelia-session.secret";
-            user = config.services.authelia.instances.main.user;
-            group = config.services.authelia.instances.main.group;
-            permissions = "0440";
-            destDir = "/etc/nixos/secrets";
-          };
+            "authelia-session.secret" = {
+              keyFile = "/etc/nixos/secrets/authelia-session.secret";
+              user = config.services.authelia.instances.main.user;
+              group = config.services.authelia.instances.main.group;
+              permissions = "0440";
+              destDir = "/etc/nixos/secrets";
+            };
 
-          "authelia-storage.secret" = {
-            keyFile = "/etc/nixos/secrets/authelia-storage.secret";
-            user = config.services.authelia.instances.main.user;
-            group = config.services.authelia.instances.main.group;
-            permissions = "0440";
-            destDir = "/etc/nixos/secrets";
-          };
+            "authelia-storage.secret" = {
+              keyFile = "/etc/nixos/secrets/authelia-storage.secret";
+              user = config.services.authelia.instances.main.user;
+              group = config.services.authelia.instances.main.group;
+              permissions = "0440";
+              destDir = "/etc/nixos/secrets";
+            };
 
-          "brevo-smtp-credentials.secret" = {
-            keyFile = "/etc/nixos/secrets/brevo-smtp-credentials.secret";
-            user = config.services.authelia.instances.main.user;
-            group = config.services.authelia.instances.main.group;
-            permissions = "0440";
-            destDir = "/etc/nixos/secrets";
-          };
-          "radarr-apikey.secret" = {
-            keyFile = "/etc/nixos/secrets/radarr-apikey.secret";
-          };
-          "sonarr-apikey.secret" = {
-            keyFile = "/etc/nixos/secrets/sonarr-apikey.secret";
-          };
-          "wg0.conf" = {
-            keyFile = "/etc/nixos/secrets/wg0.conf";
+            "brevo-smtp-credentials.secret" = {
+              keyFile = "/etc/nixos/secrets/brevo-smtp-credentials.secret";
+              user = config.services.authelia.instances.main.user;
+              group = config.services.authelia.instances.main.group;
+              permissions = "0440";
+              destDir = "/etc/nixos/secrets";
+            };
+            "radarr-apikey.secret" = {
+              keyFile = "/etc/nixos/secrets/radarr-apikey.secret";
+            };
+            "sonarr-apikey.secret" = {
+              keyFile = "/etc/nixos/secrets/sonarr-apikey.secret";
+            };
+            "wg0.conf" = {
+              keyFile = "/etc/nixos/secrets/wg0.conf";
+            };
           };
         };
       };
 
       nas02 = {config, ...}: {
-        deployment.keys = {
-          "acme-cloudflare-credentials.secret" = {
-            keyFile = "/etc/nixos/secrets/acme-cloudflare-credentials.secret";
-            user = "acme";
-            group = "acme";
+        deployment = {
+          tags = ["server"];
+          keys = {
+            "acme-cloudflare-credentials.secret" = {
+              keyFile = "/etc/nixos/secrets/acme-cloudflare-credentials.secret";
+              user = "acme";
+              group = "acme";
+            };
           };
         };
         imports = [{nixpkgs.overlays = [inputs.nix-minecraft.overlay];}];
       };
 
       stealth16 = {...}: {
-        deployment.allowLocalDeployment = true;
+        deployment = {
+          tags = ["laptop"];
+          allowLocalDeployment = true;
+        };
+
         imports = [
           home-manager.nixosModules.home-manager
           nvf.nixosModules.nvf
@@ -142,7 +152,12 @@
         ];
       };
 
-      xps13 = {...}: {};
+      xps13 = {...}: {
+        deployment = {
+          tags = ["laptop"];
+          allowLocalDeployment = true;
+        };
+      };
     };
   };
 }

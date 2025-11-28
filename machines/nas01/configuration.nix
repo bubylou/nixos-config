@@ -32,6 +32,7 @@ in {
     lldap = {
       enable = true;
       ldapBaseDN = "dc=bubylou,dc=com";
+      ldapHost = "0.0.0.0";
     };
 
     prowlarr.enable = true;
@@ -71,9 +72,6 @@ in {
     nameservers = ["::1"];
 
     firewall = {
-      allowedTCPPorts = [
-        config.services.lldap.settings.ldap_port
-      ];
       allowedUDPPorts = [
         config.services.blocky.settings.ports.dns
       ];
