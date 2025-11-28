@@ -17,6 +17,8 @@ in {
         allowedTCPPorts = [8080];
         allowedUDPPorts = [8080];
       };
+
+      interfaces.enp1s0.wakeOnLan.enable = true;
     };
 
     services.greetd = {

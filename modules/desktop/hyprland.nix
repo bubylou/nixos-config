@@ -23,7 +23,9 @@ in {
     hardware.bluetooth.enable = true;
 
     environment.systemPackages = with pkgs; [
+      bluetui
       brave
+      brightnessctl
       bitwarden-desktop
       cliphist
       firefox
@@ -37,6 +39,7 @@ in {
       mpv
       rofi-wayland
       signal-desktop-bin
+      tealdeer
       webcord
       xdg-desktop-portal-hyprland
     ];

@@ -174,6 +174,13 @@
     windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0
   '';
 in {
+  boot.supportedFilesystems = ["nfs"];
+  fileSystems."/mnt/nfs/share" = {
+    device = "nas01:/srv/share";
+    fsType = "nfs";
+    options = ["x-systemd.automount" "noauto"];
+  };
+
   desktop.hyprland.enable = true;
 
   hardware = {
@@ -181,6 +188,7 @@ in {
     nvidia-container-toolkit.enable = true;
     nvidia = {
       open = true;
+      forceFullCompositionPipeline = true;
       modesetting.enable = true;
       prime = {
         sync.enable = true;
