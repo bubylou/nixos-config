@@ -30,10 +30,10 @@ in {
             (kodiPkgs:
               with kodiPkgs; [
                 bluetooth-manager
-                inputstream-rtmp
-                inputstream-ffmpegdirect
                 invidious
                 jellyfin
+                joystick
+                keymap
                 sendtokodi
                 upnext
                 youtube
