@@ -182,8 +182,9 @@ in {
   };
 
   desktop.hyprland.enable = true;
-
   hardware = {
+    bluetooth.enable = true;
+
     graphics.enable = true;
     nvidia-container-toolkit.enable = true;
     nvidia = {

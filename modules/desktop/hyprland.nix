@@ -20,7 +20,6 @@ in {
     };
 
     networking.networkmanager.enable = true;
-    hardware.bluetooth.enable = true;
 
     environment.systemPackages = with pkgs; [
       bluetui
@@ -29,6 +28,7 @@ in {
       bitwarden-desktop
       cliphist
       firefox
+      freetube
       fuzzel
       ghostty
       hypridle
