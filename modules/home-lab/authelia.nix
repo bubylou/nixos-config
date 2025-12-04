@@ -95,6 +95,11 @@ in {
                 policy = "bypass";
               }
               {
+                domain_regex = "(qbittorrent|radarr|sonarr).${config.home-lab.domain}$";
+                policy = "bypass";
+                resources = ["^/api.*"];
+              }
+              {
                 domain = "mealie.${config.home-lab.domain}";
                 policy = "one_factor";
               }
@@ -109,7 +114,7 @@ in {
 
             cookies = [
               {
-                domain = config.home-lab.domain;
+                inherit (config.home-lab) domain;
                 authelia_url = "https://auth.${config.home-lab.domain}";
                 default_redirection_url = "https://jellyfin.${config.home-lab.domain}";
               }
