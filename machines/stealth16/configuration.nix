@@ -191,8 +191,13 @@ in {
       open = true;
       forceFullCompositionPipeline = true;
       modesetting.enable = true;
+
       prime = {
-        sync.enable = true;
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+
         amdgpuBusId = "PCI:197:0:0";
         nvidiaBusId = "PCI:195:0:0";
       };
@@ -210,8 +215,8 @@ in {
   programs.steam.extest.enable = true;
 
   services = {
-    # also wayland drivers
-    xserver.videoDrivers = ["amdgpu" "nvidia"];
+    # xserver/wayland drivers; modesetting is required for prime offloading
+    xserver.videoDrivers = ["amdgpu" "nvidia" "modesetting"];
 
     tlp.enable = true;
 
