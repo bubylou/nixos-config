@@ -1,4 +1,16 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  patchDesktop = pkg: appName: from: to:
+    lib.hiPrio (
+      pkgs.runCommand "$patched-desktop-entry-for-${appName}" {} ''
+        ${pkgs.coreutils}/bin/mkdir -p $out/share/applications
+        ${pkgs.gnused}/bin/sed 's#${from}#${to}#g' < ${pkg}/share/applications/${appName}.desktop > $out/share/applications/${appName}.desktop
+      ''
+    );
+  GPUOffloadApp = pkg: desktopName: patchDesktop pkg desktopName "^Exec=" "Exec=nvidia-offload ";
   hyprlandConfig = pkgs.writeText "hyprland.conf" ''
     monitor=,preferred,auto,auto
 
@@ -183,6 +195,11 @@ in {
   };
 
   desktop.hyprland.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    (GPUOffloadApp steam "steam")
+  ];
+
   hardware = {
     bluetooth.enable = true;
 
@@ -196,7 +213,6 @@ in {
       prime = {
         offload = {
           enable = true;
-          enableOffloadCmd = true;
         };
 
         amdgpuBusId = "PCI:197:0:0";
