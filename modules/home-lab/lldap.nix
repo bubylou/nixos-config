@@ -43,11 +43,12 @@ in {
     services = {
       lldap = {
         enable = true;
+        silenceForceUserPassResetWarning = true;
 
         settings = {
           ldap_user_email = "admin@${config.home-lab.domain}";
           ldap_user_dn = "admin";
-          ldap_user_pass_file = "/run/keys/lldap-admin-password.secret";
+          ldap_user_pass_file = "/etc/nixos/secrets/lldap-admin-password.secret";
           ldap_port = cfg.ldapPort;
           ldap_host = cfg.ldapHost;
           ldap_base_dn = "${cfg.ldapBaseDN}";

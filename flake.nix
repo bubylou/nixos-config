@@ -105,11 +105,12 @@
               destDir = "/etc/nixos/secrets";
             };
 
-            "lldap-admin-password" = {
-              keyFile = "/etc/nixos/secrets/lldap-admin-password.secret";
+            "lldap-admin-password.secret" = {
               user = config.services.authelia.instances.main.user;
               group = config.services.authelia.instances.main.group;
-              permissions = "0440";
+              permissions = "0555";
+              keyFile = "/etc/nixos/secrets/lldap-admin-password.secret";
+              destDir = "/etc/nixos/secrets";
             };
 
             "radarr-apikey.secret" = {
