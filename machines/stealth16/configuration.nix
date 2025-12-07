@@ -4,7 +4,7 @@
 
     $terminal = ghostty
     $fileManager = yazi
-    $menu = rofi -show run
+    $menu = hyprlauncher
 
     exec-once = wl-paste --watch cliphist store & hyprpanel
     exec-once = systemctl --user enable --now hypridle.service
@@ -17,7 +17,7 @@
 
     general {
         gaps_in = 5
-        gaps_out = 20
+        gaps_out = 10
         border_size = 2
         col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
         col.inactive_border = rgba(595959aa)
@@ -102,16 +102,13 @@
         }
     }
 
-    gestures {
-        workspace_swipe = false
-    }
-
     device {
         name = epic-mouse-v1
         sensitivity = -0.5
     }
 
     $mainMod = ALT
+    $shiftMod = SHIFT
 
     bind = $mainMod, Q, exec, $terminal
     bind = $mainMod, C, killactive,
@@ -121,6 +118,10 @@
     bind = $mainMod, R, exec, $menu
     bind = $mainMod, P, pseudo, # dwindle
     bind = $mainMod, J, togglesplit, # dwindle
+
+    bind = $mainMod, PRINT, exec, hyprshot -m window
+    bind = , PRINT, exec, hyprshot -m output
+    bind = $shiftMod, PRINT, exec, hyprshot -m region
 
     bind = $mainMod, left, movefocus, l
     bind = $mainMod, right, movefocus, r

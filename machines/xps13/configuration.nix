@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   home-lab = {
     ssh = {
       enable = true;
@@ -11,9 +11,6 @@
   hardware = {
     bluetooth.enable = true;
     graphics.enable = true;
-    graphics.extraPackages = with pkgs; [
-      intel-media-sdk
-    ];
   };
 
   system.stateVersion = "25.05";

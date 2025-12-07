@@ -31,36 +31,45 @@
     yq
   ];
 
-  programs.eza = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.git = {
-    enable = true;
-    userEmail = "bubylou@pm.me";
-    userName = "Nicholas Malcolm";
-  };
-
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.zsh = {
-    enable = true;
-    autosuggestion.enable = true;
-    enableCompletion = true;
-    syntaxHighlighting.enable = true;
-    oh-my-zsh = {
+  programs = {
+    eza = {
       enable = true;
-      plugins = ["git" "helm" "kubectl"];
-      theme = "robbyrussell";
+      enableZshIntegration = true;
+    };
+
+    git = {
+      enable = true;
+      settings = {
+        init = {
+          defaultBranch = "main";
+        };
+        user = {
+          email = "bubylou@pm.me";
+          name = "Nicholas Malcolm";
+        };
+      };
+    };
+
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    zsh = {
+      enable = true;
+      autosuggestion.enable = true;
+      enableCompletion = true;
+      syntaxHighlighting.enable = true;
+      oh-my-zsh = {
+        enable = true;
+        plugins = ["git" "helm" "kubectl"];
+        theme = "robbyrussell";
+      };
     };
   };
 }

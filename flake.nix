@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
     disko = {
@@ -14,7 +14,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -104,12 +104,22 @@
               permissions = "0440";
               destDir = "/etc/nixos/secrets";
             };
+
+            "lldap-admin-password" = {
+              keyFile = "/etc/nixos/secrets/lldap-admin-password.secret";
+              user = config.services.authelia.instances.main.user;
+              group = config.services.authelia.instances.main.group;
+              permissions = "0440";
+            };
+
             "radarr-apikey.secret" = {
               keyFile = "/etc/nixos/secrets/radarr-apikey.secret";
             };
+
             "sonarr-apikey.secret" = {
               keyFile = "/etc/nixos/secrets/sonarr-apikey.secret";
             };
+
             "wg0.conf" = {
               keyFile = "/etc/nixos/secrets/wg0.conf";
             };

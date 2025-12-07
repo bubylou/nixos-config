@@ -27,20 +27,23 @@ in {
       brightnessctl
       bitwarden-desktop
       cliphist
+      discord
       firefox
       freetube
       fuzzel
       ghostty
       hypridle
+      hyprlauncher
       hyprlock
       hyprpanel
       hyprpaper
       hyprpolkitagent
+      hyprshot
+      hyprpwcenter
       mpv
-      rofi-wayland
+      rofi
       signal-desktop-bin
       tealdeer
-      webcord
       xdg-desktop-portal-hyprland
     ];
   };
