@@ -17,13 +17,13 @@
     ncdu
     nerd-fonts.mononoki
     nodejs
-    ouch
     podman
     podman-compose
     python3
     ripgrep
     rsync
     tmux
+    unar
     unzip
     xh
     xclip
