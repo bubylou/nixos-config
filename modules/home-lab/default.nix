@@ -5,6 +5,8 @@
 }: {
   imports = [
     ./authelia.nix
+    ./beszel-agent.nix
+    ./beszel-hub.nix
     ./blocky.nix
     ./caddy.nix
     ./gatus.nix
