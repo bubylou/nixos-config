@@ -21,14 +21,14 @@ in {
         $fileManager = yazi
         $menu = hyprlauncher
 
-        exec-once = wl-paste --watch cliphist store & hyprpanel
-        exec-once = systemctl --user enable --now hypridle.service
-        exec-once = systemctl --user enable --now hyprpaper.service
+        exec-once = wl-paste --watch cliphist store
+        exec-once = hyprpanel & hyprpaper & hyprlock
 
         env = XCURSOR_SIZE,24
         env = HYPRCURSOR_SIZE,24
         env = LIBVA_DRIVER_NAME,nvidia
         env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+        env = ELECTRON_OZONE_PLATFORM_HINT,auto
 
         general {
             gaps_in = 5
@@ -191,6 +191,9 @@ in {
       '';
     };
 
+    # enables both hyprlock and hypridle
+    programs.hyprlock.enable = true;
+
     programs.hyprland = {
       enable = true;
       withUWSM = true;
@@ -210,16 +213,14 @@ in {
       freetube
       fuzzel
       ghostty
-      hypridle
       hyprlauncher
-      hyprlock
+      hyprmon
       hyprpanel
       hyprpaper
       hyprpolkitagent
       hyprshot
       hyprpwcenter
       mpv
-      rofi
       signal-desktop-bin
       tealdeer
       xdg-desktop-portal-hyprland

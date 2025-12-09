@@ -55,6 +55,7 @@
           ./modules/home-lab/default.nix
           ./modules/desktop/default.nix
           disko.nixosModules.disko
+          home-manager.nixosModules.home-manager
           nix-minecraft.nixosModules.minecraft-servers
         ];
 
@@ -149,7 +150,6 @@
         };
 
         imports = [
-          home-manager.nixosModules.home-manager
           nvf.nixosModules.nvf
           ./machines/common/games.nix
           ./machines/common/neovim.nix

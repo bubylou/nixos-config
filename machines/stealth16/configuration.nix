@@ -48,6 +48,7 @@
 
     upower.enable = true;
     tlp.enable = true;
+    mullvad-vpn.enable = true;
 
     greetd = {
       enable = true;
