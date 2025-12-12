@@ -6,6 +6,9 @@
   hardware = {
     bluetooth.enable = true;
 
+    cpu.intel.updateMicrocode = true;
+    enableRedistributableFirmware = true;
+
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
@@ -25,8 +28,10 @@
       users = ["buby"];
     };
   };
-
   services = {
+    xserver.videoDrivers = ["modesetting"];
+    tlp.enable = true;
+
     pipewire.configPackages = [
       (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/10-bluetooth-all.conf" ''
         context.modules = [{

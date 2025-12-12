@@ -24,6 +24,7 @@ in {
     services.greetd = {
       enable = true;
       settings = rec {
+        # auto login
         default_session = initial_session;
         initial_session = {
           command = "${pkgs.kodi-gbm.withPackages
