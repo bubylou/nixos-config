@@ -1,5 +1,13 @@
 {pkgs, ...}: {
-  boot.supportedFilesystems = ["nfs"];
+  boot = {
+    supportedFilesystems = ["nfs"];
+    binfmt.emulatedSystems = ["aarch64-linux"];
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
+
   fileSystems."/mnt/nfs/share" = {
     device = "nas01:/srv/share";
     fsType = "nfs";
@@ -55,7 +63,7 @@
       settings = rec {
         default_session = initial_session;
         initial_session = {
-          command = "${pkgs.uwsm}/bin/uwsm start hyprland-uwsm.desktop";
+          command = "${pkgs.hyprland}/bin/hyprland";
           user = "buby";
         };
       };
