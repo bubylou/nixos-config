@@ -55,7 +55,7 @@
       settings = rec {
         default_session = initial_session;
         initial_session = {
-          command = "${pkgs.uwsm}/bin/uwsm start hyprland-uwsm.desktop";
+          command = "${pkgs.hyprland}/bin/hyprland";
           user = "buby";
         };
       };

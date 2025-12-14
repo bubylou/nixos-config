@@ -156,7 +156,6 @@
           {
             home-manager = {
               useGlobalPkgs = true;
-              useUserPackages = true;
               users.buby = ./machines/common/home.nix;
             };
           }
