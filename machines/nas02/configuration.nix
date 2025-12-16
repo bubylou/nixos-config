@@ -54,6 +54,7 @@ in {
       volumes = [
         "jellyfin_data:/config"
         "/mnt/nfs/share/Movies:/movies"
+        "/mnt/nfs/share/Music:/music"
         "/mnt/nfs/share/TV:/tv"
       ];
     };
