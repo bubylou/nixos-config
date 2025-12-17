@@ -46,7 +46,6 @@
           targetHost = name;
           targetUser = "buby";
         };
-
         imports = [
           ./machines/${name}/configuration.nix
           ./machines/${name}/disk-config.nix
@@ -141,6 +140,15 @@
           };
         };
         imports = [{nixpkgs.overlays = [inputs.nix-minecraft.overlay];}];
+      };
+
+      oracle01 = {...}: {
+        deployment = {
+          tags = ["server"];
+        };
+        imports = [
+          "${nixpkgs}/nixos/modules/virtualisation/oci-image.nix"
+        ];
       };
 
       stealth16 = {...}: {
