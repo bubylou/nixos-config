@@ -51,6 +51,7 @@
           ./machines/${name}/disk-config.nix
           ./machines/${name}/hardware-configuration.nix
           ./machines/common/default.nix
+          ./machines/common/users.nix
           ./modules/home-lab/default.nix
           ./modules/desktop/default.nix
           disko.nixosModules.disko
