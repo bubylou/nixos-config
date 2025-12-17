@@ -2,7 +2,14 @@
   nas01 = "100.93.143.35";
   nas02 = "100.78.117.28";
 in {
-  boot.supportedFilesystems = ["nfs"];
+  boot = {
+    supportedFilesystems = ["nfs"];
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
+
   fileSystems."/mnt/nfs/share" = {
     device = "nas01:/srv/share";
     fsType = "nfs";

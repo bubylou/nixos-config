@@ -3,11 +3,6 @@
   config,
   ...
 }: {
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-  };
-
   programs.zsh.enable = true;
   time.timeZone = "America/New_York";
   users.users = {

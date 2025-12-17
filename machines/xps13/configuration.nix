@@ -1,4 +1,9 @@
 {...}: {
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
+
   home-lab = {
     ssh = {
       enable = true;
