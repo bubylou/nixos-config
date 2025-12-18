@@ -6,6 +6,10 @@
 }: let
   cfg = config.desktop.gnome;
 in {
+  imports = [
+    ./common.nix
+  ];
+
   options.desktop.gnome = {
     enable = lib.mkEnableOption "enables gnome desktop";
   };
@@ -21,17 +25,8 @@ in {
     ];
 
     environment.systemPackages = with pkgs; [
-      brave
-      bitwarden-desktop
-      discord
-      firefox
-      foliate
-      ghostty
       gnome-tweaks
       gnomeExtensions.appindicator
-      obsidian
-      onlyoffice-bin
-      signal-desktop-bin
     ];
 
     networking.networkmanager.enable = true;

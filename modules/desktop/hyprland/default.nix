@@ -7,6 +7,7 @@
   cfg = config.desktop.hyprland;
 in {
   imports = [
+    ../common.nix
     ./hyprland.nix
     ./hypridle.nix
     ./hyprpanel.nix
@@ -28,22 +29,13 @@ in {
 
     environment.systemPackages = with pkgs; [
       bluetui
-      brave
       brightnessctl
-      bitwarden-desktop
       cliphist
-      discord
-      firefox
-      fuzzel
-      gapless
-      ghostty
       hyprmon
       hyprlauncher
       hyprshot
       hyprpwcenter
       mpv
-      signal-desktop-bin
-      tealdeer
       webcord
     ];
   };
