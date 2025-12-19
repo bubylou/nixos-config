@@ -2,12 +2,9 @@
   nas01 = "100.93.143.35";
   nas02 = "100.78.117.28";
 in {
-  boot.supportedFilesystems = ["nfs"];
-  fileSystems."/mnt/nfs/share" = {
-    device = "nas01:/srv/share";
-    fsType = "nfs";
-    options = ["x-systemd.automount" "noauto"];
-  };
+  imports = [
+    ../common/rclone.nix
+  ];
 
   hardware = {
     graphics.enable = true;
@@ -24,12 +21,6 @@ in {
     beszel-agent = {
       enable = true;
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/v5jX8oQ9lZzIgtX+b0BMJ6inyhZr/ta12w5Xs+mZg";
-    };
-
-    lldap = {
-      enable = false;
-      ldapBaseDN = "dc=bubylou,dc=com";
-      ldapHost = nas01;
     };
 
     blocky = {
@@ -53,11 +44,17 @@ in {
       enable = true;
       volumes = [
         "jellyfin_data:/config"
-        "/mnt/nfs/share/Movies:/movies"
-        "/mnt/nfs/share/TV:/tv"
+        "/mnt/share/Movies:/movies"
+        "/mnt/share/TV:/tv"
       ];
     };
     jellyseerr.enable = true;
+
+    lldap = {
+      enable = false;
+      ldapBaseDN = "dc=bubylou,dc=com";
+      ldapHost = nas01;
+    };
 
     ssh = {
       enable = true;

@@ -6,7 +6,6 @@ in {
     supportedFilesystems = ["zfs"];
     zfs.extraPools = ["tank"];
   };
-  services.nfs.server.enable = true;
 
   home-lab = {
     domain = "bubylou.com";
