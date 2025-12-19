@@ -7,6 +7,7 @@
     fuzzel
     gapless
     ghostty
+    librewolf
     signal-desktop-bin
   ];
 }

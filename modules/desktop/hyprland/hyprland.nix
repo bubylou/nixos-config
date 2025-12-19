@@ -13,7 +13,7 @@ in {
         windowrule = [
           "suppressevent maximize, class:.*"
           "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-          "workspace 1 silent,class:firefox"
+          "workspace 1 silent,class:librewolf"
           "workspace 1 silent,class:brave"
           "workspace 3 silent,class:discord"
           "workspace 3 silent,class:signal"
@@ -25,7 +25,7 @@ in {
           "float, title:^(.*Bitwarden Password Manager.*)$"
         ];
         exec-once = [
-          "firefox"
+          "librewolf"
           "signal-desktop"
           "webcord"
           "steam"
