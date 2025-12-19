@@ -13,6 +13,22 @@ in {
         windowrule = [
           "suppressevent maximize, class:.*"
           "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+          "workspace 1 silent,class:firefox"
+          "workspace 1 silent,class:brave"
+          "workspace 3 silent,class:discord"
+          "workspace 3 silent,class:signal"
+          "workspace 3 silent,class:WebCord"
+          "workspace 4 silent,class:steam"
+          "float, title:^(Picture-in-Picture)$"
+          "pin, title:^(Picture-in-Picture)$"
+          "workspace special silent, title:^(Firefox — Sharing Indicator)$"
+          "float, title:^(.*Bitwarden Password Manager.*)$"
+        ];
+        exec-once = [
+          "firefox"
+          "signal-desktop"
+          "webcord"
+          "steam"
         ];
         general = {
           gaps_in = 5;
@@ -57,6 +73,8 @@ in {
             "$mod, C, killactive"
             "$mod, M, exec, exit"
             "$mod, E, exec, yazi"
+            "$mod, F, fullscreen"
+            "$mod, G, togglegroup"
             "$mod, V, togglefloating"
             "$mod, R, exec, hyprlauncher"
             "$mod, P, pseudo"
