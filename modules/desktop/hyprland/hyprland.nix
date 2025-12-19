@@ -30,6 +30,10 @@ in {
           "webcord"
           "steam"
         ];
+        env = [
+          "LIBVA_DRIVER_NAME,nvidia"
+          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        ];
         general = {
           gaps_in = 5;
           gaps_out = 10;
