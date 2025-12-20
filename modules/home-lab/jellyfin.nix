@@ -30,7 +30,7 @@ in {
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers = {
       jellyfin = {
-        image = "ghcr.io/linuxserver/jellyfin:10.11.3";
+        image = "ghcr.io/linuxserver/jellyfin:10.11.5";
         extraOptions = ["--device" "nvidia.com/gpu=all"];
         environment = {
           TZ = "America/New_York";

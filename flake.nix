@@ -46,12 +46,12 @@
           targetHost = name;
           targetUser = "buby";
         };
-
         imports = [
           ./machines/${name}/configuration.nix
           ./machines/${name}/disk-config.nix
           ./machines/${name}/hardware-configuration.nix
           ./machines/common/default.nix
+          ./machines/common/users.nix
           ./modules/home-lab/default.nix
           ./modules/desktop/default.nix
           disko.nixosModules.disko
@@ -141,6 +141,15 @@
           };
         };
         imports = [{nixpkgs.overlays = [inputs.nix-minecraft.overlay];}];
+      };
+
+      oracle01 = {...}: {
+        deployment = {
+          tags = ["server"];
+        };
+        imports = [
+          "${nixpkgs}/nixos/modules/virtualisation/oci-image.nix"
+        ];
       };
 
       stealth16 = {...}: {

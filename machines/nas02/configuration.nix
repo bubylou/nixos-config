@@ -6,6 +6,13 @@ in {
     ../common/rclone.nix
   ];
 
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
+
   hardware = {
     graphics.enable = true;
     nvidia-container-toolkit.enable = true;
@@ -45,6 +52,7 @@ in {
       volumes = [
         "jellyfin_data:/config"
         "/mnt/share/Movies:/movies"
+        "/mnt/share/Music:/music"
         "/mnt/share/TV:/tv"
       ];
     };

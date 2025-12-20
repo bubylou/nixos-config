@@ -5,6 +5,10 @@ in {
   boot = {
     supportedFilesystems = ["zfs"];
     zfs.extraPools = ["tank"];
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
   };
   services.zfs.autoScrub.enable = true;
 

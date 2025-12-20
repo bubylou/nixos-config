@@ -2,6 +2,13 @@
   imports = [
     ../common/rclone.nix
   ];
+  boot = {
+    binfmt.emulatedSystems = ["aarch64-linux"];
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
 
   desktop.hyprland.enable = true;
 
