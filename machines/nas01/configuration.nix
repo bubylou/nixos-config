@@ -6,6 +6,7 @@ in {
     supportedFilesystems = ["zfs"];
     zfs.extraPools = ["tank"];
   };
+  services.zfs.autoScrub.enable = true;
 
   home-lab = {
     domain = "bubylou.com";
