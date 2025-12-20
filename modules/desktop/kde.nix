@@ -6,6 +6,10 @@
 }: let
   cfg = config.desktop.kde;
 in {
+  imports = [
+    ./common.nix
+  ];
+
   options.desktop.kde = {
     enable = lib.mkEnableOption "enables kde desktop";
   };
@@ -14,17 +18,7 @@ in {
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
       konsole
       krdp
-      okular # pdf viewer
       plasma-browser-integration
-    ];
-
-    environment.systemPackages = with pkgs; [
-      brave
-      bitwarden-desktop
-      discord
-      firefox
-      ghostty
-      signal-desktop-bin
     ];
 
     networking.networkmanager.enable = true;

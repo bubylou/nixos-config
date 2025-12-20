@@ -1,12 +1,10 @@
 {pkgs, ...}: {
-  boot.supportedFilesystems = ["nfs"];
-  fileSystems."/mnt/nfs/share" = {
-    device = "nas01:/srv/share";
-    fsType = "nfs";
-    options = ["x-systemd.automount" "noauto"];
-  };
+  imports = [
+    ../common/rclone.nix
+  ];
 
   desktop.hyprland.enable = true;
+
   hardware = {
     bluetooth.enable = true;
 
