@@ -23,10 +23,10 @@ in {
       enable = true;
       adBlock = true;
       customDNS = {
-        "bubylou.com" = nas01;
         "jellyfin.bubylou.com" = nas02;
         "jellyseerr.bubylou.com" = nas02;
         "status.bubylou.com" = nas02;
+        "bubylou.com" = nas01;
       };
     };
 
@@ -78,6 +78,11 @@ in {
     nameservers = ["::1"];
 
     firewall = {
+      allowedTCPPorts = [
+        443
+        80
+        config.services.blocky.settings.ports.dns
+      ];
       allowedUDPPorts = [
         config.services.blocky.settings.ports.dns
       ];
