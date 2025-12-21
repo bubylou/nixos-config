@@ -10,6 +10,7 @@
     ./blocky.nix
     ./caddy.nix
     ./gatus.nix
+    ./headscale.nix
     ./jellyfin.nix
     ./jellyseerr.nix
     ./lldap.nix
