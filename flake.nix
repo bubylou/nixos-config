@@ -146,6 +146,13 @@
       oracle01 = {...}: {
         deployment = {
           tags = ["server"];
+          keys = {
+            "acme-cloudflare-credentials.secret" = {
+              keyFile = "/etc/nixos/secrets/acme-cloudflare-credentials.secret";
+              user = "acme";
+              group = "acme";
+            };
+          };
         };
         imports = [
           "${nixpkgs}/nixos/modules/virtualisation/oci-image.nix"

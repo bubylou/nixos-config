@@ -1,6 +1,7 @@
 {config, ...}: let
   nas01 = "100.93.143.35";
   nas02 = "100.78.117.28";
+  oracle01 = "100.119.159.96";
 in {
   imports = [
     ../common/rclone.nix
@@ -34,6 +35,7 @@ in {
       enable = true;
       adBlock = true;
       customDNS = {
+        "headscale.bubylou.com" = oracle01;
         "jellyfin.bubylou.com" = nas02;
         "jellyseerr.bubylou.com" = nas02;
         "status.bubylou.com" = nas02;
