@@ -14,6 +14,12 @@ in {
       example = "headscale.example.com";
     };
 
+    nameservers = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = ["1.1.1.1"];
+      example = ["1.1.1.1" "9.9.9.9"];
+    };
+
     tailnet = lib.mkOption {
       type = lib.types.str;
       default = "tailnet.${config.home-lab.domain}";
@@ -43,7 +49,8 @@ in {
         settings = {
           dns = {
             base_domain = cfg.tailnet;
-            nameservers.global = ["1.1.1.1"];
+            nameservers.global = cfg.nameservers;
+            search_domains = [cfg.tailnet config.home-lab.domain];
           };
         };
       };
