@@ -1,7 +1,7 @@
 {config, ...}: let
-  nas01 = "100.93.143.35";
-  nas02 = "100.78.117.28";
-  oracle01 = "100.119.159.96";
+  nas01 = "100.64.0.3";
+  nas02 = "100.64.0.4";
+  oracle01 = "129.80.110.240";
 in {
   imports = [
     ../common/rclone.nix
@@ -73,7 +73,7 @@ in {
   };
 
   networking = {
-    nameservers = ["::1"];
+    nameservers = ["127.0.0.1"];
 
     firewall = {
       allowedTCPPorts = [
