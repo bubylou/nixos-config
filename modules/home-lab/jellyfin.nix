@@ -35,7 +35,7 @@ in {
         environment = {
           TZ = "America/New_York";
           PUID = "1000";
-          GUID = "1000";
+          GUID = "100";
         };
         ports = [
           "${toString cfg.port}:8096"
