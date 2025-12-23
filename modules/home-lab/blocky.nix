@@ -34,7 +34,7 @@ in {
 
         bootstrapDns = {
           upstream = "https://one.one.one.one/dns-query";
-          ips = ["100.100.100.100" "1.1.1.1"];
+          ips = ["1.1.1.1" "1.0.0.1"];
         };
 
         blocking = lib.mkIf cfg.adBlock {

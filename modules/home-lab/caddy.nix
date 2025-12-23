@@ -8,6 +8,18 @@ in {
   options.home-lab.caddy = {
     enable = lib.mkEnableOption "enables caddy";
 
+    authHost = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      example = "127.0.0.1";
+    };
+
+    authPort = lib.mkOption {
+      type = lib.types.int;
+      default = 9091;
+      example = 9091;
+    };
+
     email = lib.mkOption {
       type = lib.types.str;
       default = "";
@@ -29,7 +41,7 @@ in {
 
         extraConfig = ''
           (auth) {
-            forward_auth :9091 {
+            forward_auth ${cfg.authHost}:${toString cfg.authPort} {
               uri /api/authz/forward-auth
               copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
             }

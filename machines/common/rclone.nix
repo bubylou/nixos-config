@@ -12,6 +12,8 @@
     device = "share:/srv/share";
     fsType = "rclone";
     options = [
+      "uid=1000"
+      "gid=100"
       "nodev"
       "nofail"
       "allow_other"

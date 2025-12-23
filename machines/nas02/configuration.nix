@@ -1,6 +1,7 @@
 {config, ...}: let
-  nas01 = "100.93.143.35";
-  nas02 = "100.78.117.28";
+  nas01 = "100.64.0.3";
+  nas02 = "100.64.0.4";
+  oracle01 = "129.80.110.240";
 in {
   imports = [
     ../common/rclone.nix
@@ -34,6 +35,7 @@ in {
       enable = true;
       adBlock = true;
       customDNS = {
+        "headscale.bubylou.com" = oracle01;
         "jellyfin.bubylou.com" = nas02;
         "jellyseerr.bubylou.com" = nas02;
         "status.bubylou.com" = nas02;
@@ -71,7 +73,7 @@ in {
   };
 
   networking = {
-    nameservers = ["::1"];
+    nameservers = ["127.0.0.1"];
 
     firewall = {
       allowedTCPPorts = [
