@@ -114,6 +114,10 @@
               destDir = "/etc/nixos/secrets";
             };
 
+            "prowlarr-apikey" = {
+              keyFile = "/etc/nixos/secrets/prowlarr-apikey";
+            };
+
             "radarr-apikey" = {
               keyFile = "/etc/nixos/secrets/radarr-apikey";
             };

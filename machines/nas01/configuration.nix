@@ -47,7 +47,6 @@ in {
       ldapHost = "0.0.0.0";
     };
 
-    prowlarr.enable = true;
     qbittorrent = {
       enable = true;
       volumes = [
@@ -56,6 +55,8 @@ in {
         "/srv/share/Downloads:/downloads"
       ];
     };
+
+    prowlarr.enable = true;
     radarr.enable = true;
     sonarr.enable = true;
 
