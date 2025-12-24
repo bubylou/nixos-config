@@ -52,7 +52,7 @@ in {
       volumes = [
         "qbittorrent_data:/config"
         "/run/keys/wg0.conf:/config/wireguard/wg0.conf:ro"
-        "/srv/share/Downloads:/downloads"
+        "/srv/media/downloads:/downloads"
       ];
     };
 
