@@ -8,55 +8,54 @@ in {
   options.home-lab.qbittorrent = {
     enable = lib.mkEnableOption "enables qbittorrent server";
 
-    host = lib.mkOption {
+    disableAuth = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+    };
+
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "qbittorrent.${config.home-lab.domain}";
+      example = "example.com";
+    };
+
+    address = lib.mkOption {
       type = lib.types.str;
       default = "127.0.0.1";
-      example = "127.0.0.1";
+      example = "0.0.0.0";
     };
 
     port = lib.mkOption {
       type = lib.types.int;
       default = 8080;
-      example = 8080;
-    };
-
-    volumes = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [
-        "qbittorrent_data:/config"
-        "/run/keys/wg0.conf:/config/wireguard/wg0.conf:ro"
-      ];
-      example = [
-        "qbittorrent_data:/config"
-        "/run/keys/wg0.conf:/config/wireguard/wg0.conf:ro"
-        "/mnt/nfs:/downloads"
-      ];
+      example = 443;
     };
   };
 
   config = lib.mkIf cfg.enable {
-    virtualisation.oci-containers.containers.qbittorrent = {
-      image = "ghcr.io/hotio/qbittorrent:release-5.1.4";
-      environment = {
-        TZ = "America/New_York";
-        PUID = "1000";
-        GUID = "1000";
-        VPN_ENABLED = "True";
-        VPN_CONFIG = "wg0";
-      };
-      ports = [
-        "${toString cfg.port}:8080"
-      ];
-      inherit (cfg) volumes;
-    };
-
     services = {
+      qbittorrent = {
+        enable = true;
+        webuiPort = cfg.port;
+
+        serverConfig = {
+          LegalNotice.Accepted = true;
+          Preferences = {
+            WebUI = lib.mkIf (cfg.disableAuth) {
+              HostHeaderValidation = true;
+              ReverseProxySupportEnabled = true;
+              ServerDomains = "*.bubylou.com";
+            };
+          };
+        };
+      };
+
       caddy = {
-        virtualHosts."qbittorrent.${config.home-lab.domain}" = {
+        virtualHosts."${cfg.domain}" = {
           useACMEHost = config.home-lab.domain;
           extraConfig = ''
             import auth
-            reverse_proxy http://${cfg.host}:${toString cfg.port}
+            reverse_proxy http://${cfg.address}:${toString cfg.port}
           '';
         };
       };
@@ -64,7 +63,7 @@ in {
       gatus.settings.endpoints = [
         {
           name = "qbittorrent";
-          url = "http://${cfg.host}:${toString cfg.port}";
+          url = "http://${cfg.address}:${toString cfg.port}";
           interval = "1m";
           client.dns-resolver = "tcp://127.0.0.1:53";
           conditions = ["[STATUS] == 200" "[RESPONSE_TIME] < 100"];

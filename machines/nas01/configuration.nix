@@ -47,17 +47,9 @@ in {
       ldapHost = "0.0.0.0";
     };
 
-    qbittorrent = {
-      enable = true;
-      volumes = [
-        "qbittorrent_data:/config"
-        "/run/keys/wg0.conf:/config/wireguard/wg0.conf:ro"
-        "/srv/media/downloads:/downloads"
-      ];
-    };
-
     prowlarr.enable = true;
     radarr.enable = true;
+    qbittorrent.enable = true;
     sonarr.enable = true;
 
     ssh = {
