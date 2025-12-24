@@ -8,6 +8,11 @@ in {
   options.home-lab.radarr = {
     enable = lib.mkEnableOption "enables radarr server";
 
+    disableAuth = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+    };
+
     domain = lib.mkOption {
       type = lib.types.str;
       default = "radarr.${config.home-lab.domain}";
@@ -42,7 +47,7 @@ in {
             port = cfg.port;
           };
 
-          auth = {
+          auth = lib.mkIf (cfg.disableAuth) {
             enabled = false;
             method = "External";
             authenticationrequired = false;
