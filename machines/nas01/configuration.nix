@@ -56,14 +56,7 @@ in {
         "/srv/share/Downloads:/downloads"
       ];
     };
-    radarr = {
-      enable = true;
-      volumes = [
-        "radarr_data:/config"
-        "/srv/share/Downloads:/downloads"
-        "/srv/share/Movies:/movies"
-      ];
-    };
+    radarr.enable = true;
     sonarr.enable = true;
 
     ssh = {

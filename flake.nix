@@ -114,8 +114,8 @@
               destDir = "/etc/nixos/secrets";
             };
 
-            "radarr-apikey.secret" = {
-              keyFile = "/etc/nixos/secrets/radarr-apikey.secret";
+            "radarr-apikey" = {
+              keyFile = "/etc/nixos/secrets/radarr-apikey";
             };
 
             "sonarr-apikey" = {
