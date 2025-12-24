@@ -8,50 +8,54 @@ in {
   options.home-lab.sonarr = {
     enable = lib.mkEnableOption "enables sonarr server";
 
-    host = lib.mkOption {
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "sonarr.${config.home-lab.domain}";
+      example = "example.com";
+    };
+
+    address = lib.mkOption {
       type = lib.types.str;
       default = "127.0.0.1";
-      example = "127.0.0.1";
+      example = "0.0.0.0";
     };
 
     port = lib.mkOption {
       type = lib.types.int;
       default = 8989;
-      example = 8989;
-    };
-
-    volumes = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = ["sonarr_data:/config"];
-      example = ["sonarr_data:/config" "/mnt/nfs:/downloads"];
+      example = 443;
     };
   };
 
   config = lib.mkIf cfg.enable {
-    virtualisation.oci-containers.containers.sonarr = {
-      image = "ghcr.io/linuxserver/sonarr:4.0.16";
-      environment = {
-        TZ = "America/New_York";
-        PUID = "1000";
-        GUID = "1000";
-        SONARR__AUTH__APIKEY_FILE = "/run/keys/sonarr-apikey.secret";
-        SONARR__AUTH__ENABLED = "False";
-        SONARR__AUTH__METHOD = "External";
-        SONARR__AUTH__REQUIRED = "False";
-      };
-      ports = [
-        "${toString cfg.port}:8989"
-      ];
-      inherit (cfg) volumes;
-    };
-
     services = {
+      sonarr = {
+        enable = true;
+
+        environmentFiles = [
+          "/run/keys/sonarr-apikey"
+        ];
+
+        settings = {
+          server = {
+            bindaddress = cfg.address;
+            port = cfg.port;
+          };
+
+          auth = {
+            enabled = false;
+            method = "External";
+            authenticationrequired = false;
+          };
+        };
+      };
+
       caddy = {
-        virtualHosts."sonarr.${config.home-lab.domain}" = {
+        virtualHosts."${cfg.domain}" = {
           useACMEHost = config.home-lab.domain;
           extraConfig = ''
             import auth
-            reverse_proxy http://${cfg.host}:${toString cfg.port}
+            reverse_proxy http://${cfg.address}:${toString cfg.port}
           '';
         };
       };
@@ -59,7 +63,7 @@ in {
       gatus.settings.endpoints = [
         {
           name = "sonarr";
-          url = "http://${cfg.host}:${toString cfg.port}";
+          url = "http://${cfg.address}:${toString cfg.port}";
           interval = "1m";
           client.dns-resolver = "tcp://127.0.0.1:53";
           conditions = ["[STATUS] == 200" "[RESPONSE_TIME] < 100"];

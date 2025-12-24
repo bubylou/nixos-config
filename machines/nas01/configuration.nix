@@ -64,14 +64,7 @@ in {
         "/srv/share/Movies:/movies"
       ];
     };
-    sonarr = {
-      enable = true;
-      volumes = [
-        "sonarr_data:/config"
-        "/srv/share/Downloads:/downloads"
-        "/srv/share/TV:/tv"
-      ];
-    };
+    sonarr.enable = true;
 
     ssh = {
       enable = true;

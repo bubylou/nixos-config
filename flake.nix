@@ -118,8 +118,8 @@
               keyFile = "/etc/nixos/secrets/radarr-apikey.secret";
             };
 
-            "sonarr-apikey.secret" = {
-              keyFile = "/etc/nixos/secrets/sonarr-apikey.secret";
+            "sonarr-apikey" = {
+              keyFile = "/etc/nixos/secrets/sonarr-apikey";
             };
 
             "wg0.conf" = {
