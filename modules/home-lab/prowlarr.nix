@@ -5,6 +5,10 @@
 }: let
   cfg = config.home-lab.prowlarr;
 in {
+  imports = [
+    ./prowlarr-script.nix
+  ];
+
   options.home-lab.prowlarr = {
     enable = lib.mkEnableOption "enables prowlarr server";
 
@@ -39,6 +43,8 @@ in {
 
         environmentFiles = [
           "/run/keys/prowlarr-apikey"
+          "/run/keys/radarr-apikey"
+          "/run/keys/sonarr-apikey"
         ];
 
         settings = {
