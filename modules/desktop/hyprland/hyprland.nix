@@ -9,6 +9,11 @@ in {
     programs.hyprland.enable = true;
     home-manager.users.buby.wayland.windowManager.hyprland = {
       enable = true;
+
+      # conflicts with NixOS hyprland
+      package = null;
+      portalPackage = null;
+
       settings = {
         windowrule = [
           "suppressevent maximize, class:.*"
@@ -26,6 +31,7 @@ in {
         ];
         exec-once = [
           "librewolf"
+          "hyprlauncher -d"
           "signal-desktop"
           "webcord"
           "steam"
@@ -83,6 +89,7 @@ in {
             "$mod, R, exec, hyprlauncher"
             "$mod, P, pseudo"
             "$mod, J, togglesplit"
+            "$mod, U, exec, hyprlock"
 
             "$mod, PRINT, exec, hyprshot -m window"
             ", PRINT, exec, hyprshot -m output"
