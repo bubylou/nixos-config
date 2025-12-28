@@ -13,7 +13,7 @@ in {
       default = true;
     };
 
-    domain = lib.mkOption {
+    url = lib.mkOption {
       type = lib.types.str;
       default = "prowlarr.${config.home-lab.domain}";
       example = "example.com";
@@ -44,10 +44,10 @@ in {
         settings = {
           server = {
             bindaddress = cfg.address;
-            port = cfg.port;
+            inherit (cfg) port;
           };
 
-          auth = lib.mkIf (cfg.disableAuth) {
+          auth = lib.mkIf cfg.disableAuth {
             enabled = false;
             method = "External";
             authenticationrequired = false;
@@ -56,7 +56,7 @@ in {
       };
 
       caddy = {
-        virtualHosts."${cfg.domain}" = {
+        virtualHosts."${cfg.url}" = {
           useACMEHost = config.home-lab.domain;
           extraConfig = ''
             import auth

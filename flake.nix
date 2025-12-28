@@ -62,7 +62,21 @@
         networking.hostName = name;
       };
 
-      mini01 = {...}: {};
+      mini01 = {...}: {
+        deployment = {
+          tags = ["server"];
+          keys = {
+            "acme-cloudflare-credentials.secret" = {
+              keyFile = "/etc/nixos/secrets/acme-cloudflare-credentials.secret";
+              user = "acme";
+              group = "acme";
+            };
+            "radarr-4k-apikey" = {
+              keyFile = "/etc/nixos/secrets/radarr-4k-apikey";
+            };
+          };
+        };
+      };
 
       nas01 = {config, ...}: {
         deployment = {

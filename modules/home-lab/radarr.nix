@@ -8,12 +8,23 @@ in {
   options.home-lab.radarr = {
     enable = lib.mkEnableOption "enables radarr server";
 
+    environmentFiles = lib.mkOption {
+      type = lib.types.listOf lib.types.path;
+      default = [
+        "/run/keys/radarr-apikey"
+      ];
+      example = [
+        "/run/keys/radarr-4k-apikey"
+        "/tmp/radarr-4k-config"
+      ];
+    };
+
     disableAuth = lib.mkOption {
       type = lib.types.bool;
       default = true;
     };
 
-    domain = lib.mkOption {
+    url = lib.mkOption {
       type = lib.types.str;
       default = "radarr.${config.home-lab.domain}";
       example = "example.com";
@@ -37,9 +48,7 @@ in {
       radarr = {
         enable = true;
 
-        environmentFiles = [
-          "/run/keys/radarr-apikey"
-        ];
+        inherit (cfg) environmentFiles;
 
         settings = {
           server = {
@@ -56,7 +65,7 @@ in {
       };
 
       caddy = {
-        virtualHosts."${cfg.domain}" = {
+        virtualHosts."${cfg.url}" = {
           useACMEHost = config.home-lab.domain;
           extraConfig = ''
             import auth

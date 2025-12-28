@@ -1,5 +1,7 @@
 {pkgs, ...}: {
-  imports = [./disk-config.nix ./hardware-configuration.nix];
+  imports = [
+    ../common/rclone.nix
+  ];
 
   boot.loader = {
     systemd-boot.enable = true;
@@ -28,11 +30,27 @@
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/v5jX8oQ9lZzIgtX+b0BMJ6inyhZr/ta12w5Xs+mZg";
     };
 
+    caddy = {
+      enable = true;
+      authHost = "nas01";
+      email = "bubylou@pm.me";
+    };
+
+    radarr = {
+      enable = true;
+      url = "radarr-4k.bubylou.com";
+      address = "0.0.0.0";
+      environmentFiles = [
+        "/run/keys/radarr-4k-apikey"
+      ];
+    };
+
     ssh = {
       enable = true;
       users = ["buby"];
     };
   };
+
   services = {
     xserver.videoDrivers = ["modesetting"];
     tlp.enable = true;
