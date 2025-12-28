@@ -8,12 +8,10 @@
     key_file = /home/buby/.ssh/id_ed25519
   '';
 
-  fileSystems."/mnt/share" = {
-    device = "share:/srv/share";
+  fileSystems."/mnt/media" = {
+    device = "share:/srv/media";
     fsType = "rclone";
     options = [
-      "uid=1000"
-      "gid=100"
       "nodev"
       "nofail"
       "allow_other"

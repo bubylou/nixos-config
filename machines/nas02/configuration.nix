@@ -49,15 +49,7 @@ in {
     };
 
     gatus.enable = true;
-    jellyfin = {
-      enable = true;
-      volumes = [
-        "jellyfin_data:/config"
-        "/mnt/share/Movies:/movies"
-        "/mnt/share/Music:/music"
-        "/mnt/share/TV:/tv"
-      ];
-    };
+    jellyfin.enable = true;
     jellyseerr.enable = true;
 
     lldap = {

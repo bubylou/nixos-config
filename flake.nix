@@ -114,12 +114,16 @@
               destDir = "/etc/nixos/secrets";
             };
 
-            "radarr-apikey.secret" = {
-              keyFile = "/etc/nixos/secrets/radarr-apikey.secret";
+            "prowlarr-apikey" = {
+              keyFile = "/etc/nixos/secrets/prowlarr-apikey";
             };
 
-            "sonarr-apikey.secret" = {
-              keyFile = "/etc/nixos/secrets/sonarr-apikey.secret";
+            "radarr-apikey" = {
+              keyFile = "/etc/nixos/secrets/radarr-apikey";
+            };
+
+            "sonarr-apikey" = {
+              keyFile = "/etc/nixos/secrets/sonarr-apikey";
             };
 
             "wg0.conf" = {

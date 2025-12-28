@@ -47,31 +47,18 @@ in {
       ldapHost = "0.0.0.0";
     };
 
-    prowlarr.enable = true;
     qbittorrent = {
       enable = true;
       volumes = [
         "qbittorrent_data:/config"
         "/run/keys/wg0.conf:/config/wireguard/wg0.conf:ro"
-        "/srv/share/Downloads:/downloads"
+        "/srv/media/downloads:/downloads"
       ];
     };
-    radarr = {
-      enable = true;
-      volumes = [
-        "radarr_data:/config"
-        "/srv/share/Downloads:/downloads"
-        "/srv/share/Movies:/movies"
-      ];
-    };
-    sonarr = {
-      enable = true;
-      volumes = [
-        "sonarr_data:/config"
-        "/srv/share/Downloads:/downloads"
-        "/srv/share/TV:/tv"
-      ];
-    };
+
+    prowlarr.enable = true;
+    radarr.enable = true;
+    sonarr.enable = true;
 
     ssh = {
       enable = true;
