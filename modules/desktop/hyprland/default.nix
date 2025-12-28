@@ -8,9 +8,9 @@
 in {
   imports = [
     ../common.nix
+    ./ashell.nix
     ./hyprland.nix
     ./hypridle.nix
-    ./hyprpanel.nix
     ./hyprpaper.nix
   ];
 
