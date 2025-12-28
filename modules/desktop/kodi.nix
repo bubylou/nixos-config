@@ -13,9 +13,9 @@ in {
       networkmanager.enable = true;
 
       firewall = {
-        # kodi remote control
-        allowedTCPPorts = [8080];
-        allowedUDPPorts = [8080];
+        # kodi remote control and event server
+        allowedTCPPorts = [8080 9777];
+        allowedUDPPorts = [8080 9777];
       };
 
       interfaces.enp1s0.wakeOnLan.enable = true;
@@ -31,11 +31,9 @@ in {
             (kodiPkgs:
               with kodiPkgs; [
                 bluetooth-manager
-                invidious
                 jellyfin
                 joystick
                 keymap
-                sendtokodi
                 upnext
                 youtube
               ])}/bin/kodi-standalone";
@@ -45,5 +43,6 @@ in {
     };
 
     users.extraUsers.kodi.isNormalUser = true;
+    users.users.kodi.extraGroups = ["input" "video" "audio" "networkmanager"];
   };
 }
