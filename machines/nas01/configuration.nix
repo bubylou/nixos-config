@@ -43,6 +43,11 @@ in {
       email = "bubylou@pm.me";
     };
 
+    glance = {
+      enable = true;
+      port = 8081;
+    };
+
     lldap = {
       enable = true;
       ldapBaseDN = "dc=bubylou,dc=com";
