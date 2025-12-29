@@ -70,12 +70,22 @@ in {
                     {
                       title = "Jellyseerr";
                       url = "https://jellyseerr.bubylou.com/";
-                      icon = "si:jellyseerr";
+                      icon = "si:overseerr";
                     }
                     {
-                      title = "Gatus";
-                      url = "https://status.bubylou.com/";
-                      icon = "si:gatus";
+                      title = "Radarr";
+                      url = "https://radarr.bubylou.com/ping";
+                      icon = "si:radarr";
+                    }
+                    {
+                      title = "Radarr 4k";
+                      url = "https://radarr-4k.bubylou.com/ping";
+                      icon = "si:radarr";
+                    }
+                    {
+                      title = "Sonarr";
+                      url = "https://sonarr.bubylou.com/ping";
+                      icon = "si:sonarr";
                     }
                   ];
                 }
@@ -94,7 +104,7 @@ in {
                     }
                     {
                       title = "GamingOnLinux";
-                      url = "https://www.gamingonlinux.com/rss/";
+                      url = "https://www.gamingonlinux.com/article_rss.php";
                     }
                     {
                       title = "Noted";
