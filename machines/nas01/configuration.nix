@@ -46,6 +46,67 @@ in {
     glance = {
       enable = true;
       port = 8081;
+      pages = [
+        {
+          name = "Startpage";
+          columns = [
+            {
+              size = "full";
+              widgets = [
+                {
+                  type = "search";
+                  autofocus = true;
+                }
+                {
+                  type = "monitor";
+                  cache = "1m";
+                  title = "Services";
+                  sites = [
+                    {
+                      title = "Jellyfin";
+                      url = "https://jellyfin.bubylou.com/";
+                      icon = "si:jellyfin";
+                    }
+                    {
+                      title = "Jellyseerr";
+                      url = "https://jellyseerr.bubylou.com/";
+                      icon = "si:jellyseerr";
+                    }
+                    {
+                      title = "Gatus";
+                      url = "https://status.bubylou.com/";
+                      icon = "si:gatus";
+                    }
+                  ];
+                }
+              ];
+            }
+            {
+              size = "full";
+              widgets = [
+                {
+                  type = "rss";
+                  title = "RSS";
+                  feeds = [
+                    {
+                      title = "selfh.st";
+                      url = "https://selfh.st/rss/";
+                    }
+                    {
+                      title = "GamingOnLinux";
+                      url = "https://www.gamingonlinux.com/rss/";
+                    }
+                    {
+                      title = "Noted";
+                      url = "https://noted.lol/rss";
+                    }
+                  ];
+                }
+              ];
+            }
+          ];
+        }
+      ];
     };
 
     lldap = {

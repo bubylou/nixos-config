@@ -25,6 +25,25 @@ in {
       default = 7878;
       example = 443;
     };
+
+    pages = lib.mkOption {
+      type = lib.types.listOf lib.types.attrs;
+      default = [
+        {
+          columns = [
+            {
+              size = "full";
+              widgets = [
+                {
+                  type = "calendar";
+                }
+              ];
+            }
+          ];
+          name = "Calendar";
+        }
+      ];
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -33,9 +52,11 @@ in {
         enable = true;
 
         settings = {
+          inherit (cfg) pages;
+
           server = {
             host = cfg.address;
-            port = cfg.port;
+            inherit (cfg) port;
           };
         };
       };
