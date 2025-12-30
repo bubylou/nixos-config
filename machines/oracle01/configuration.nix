@@ -13,6 +13,7 @@ in {
 
     caddy = {
       enable = true;
+      authHost = "nas01";
       email = "bubylou@pm.me";
     };
     headscale = {
