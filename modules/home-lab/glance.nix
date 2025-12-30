@@ -53,6 +53,7 @@ in {
 
         settings = {
           inherit (cfg) pages;
+          branding.hide-footer = true;
 
           # catppuccin mocha
           theme = {

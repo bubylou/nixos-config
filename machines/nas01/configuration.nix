@@ -50,6 +50,8 @@ in {
       pages = [
         {
           name = "Startpage";
+          hide-desktop-navigation = true;
+
           columns = [
             {
               size = "full";
@@ -64,6 +66,11 @@ in {
                   title = "Services";
                   sites = [
                     {
+                      title = "Authelia";
+                      url = "https://auth.bubylou.com/";
+                      icon = "si:authelia";
+                    }
+                    {
                       title = "Jellyfin";
                       url = "https://jellyfin.bubylou.com/";
                       icon = "si:jellyfin";
@@ -71,24 +78,34 @@ in {
                     {
                       title = "Jellyseerr";
                       url = "https://jellyseerr.bubylou.com/";
-                      icon = "si:overseerr";
+                      icon = "sh:jellyseerr";
                     }
                     {
                       title = "Radarr";
                       url = "https://radarr.bubylou.com/ping";
-                      icon = "si:radarr";
+                      icon = "sh:radarr";
                     }
                     {
                       title = "Radarr 4k";
                       url = "https://radarr-4k.bubylou.com/ping";
-                      icon = "si:radarr";
+                      allow-insecure = true;
+                      icon = "sh:radarr";
                     }
                     {
                       title = "Sonarr";
                       url = "https://sonarr.bubylou.com/ping";
-                      icon = "si:sonarr";
+                      icon = "sh:sonarr";
+                    }
+                    {
+                      title = "qBittorrent";
+                      url = "https://qbittorrent.bubylou.com/api/v2/auth/login";
+                      icon = "si:qbittorrent";
+                      alt-status-codes = [405];
                     }
                   ];
+                }
+                {
+                  type = "to-do";
                 }
               ];
             }
@@ -112,6 +129,12 @@ in {
                       url = "https://noted.lol/rss";
                     }
                   ];
+                }
+                {
+                  type = "hacker-news";
+                  title = "Hacker News";
+                  limit = 15;
+                  collapse-after = 5;
                 }
               ];
             }
