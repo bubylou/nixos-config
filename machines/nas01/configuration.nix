@@ -25,6 +25,7 @@ in {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/v5jX8oQ9lZzIgtX+b0BMJ6inyhZr/ta12w5Xs+mZg";
     };
 
+    bazarr.enable = true;
     blocky = {
       enable = true;
       adBlock = true;
