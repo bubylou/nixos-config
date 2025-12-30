@@ -46,6 +46,7 @@ in {
     glance = {
       enable = true;
       port = 8081;
+
       pages = [
         {
           name = "Startpage";
