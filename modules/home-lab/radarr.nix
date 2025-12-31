@@ -6,13 +6,9 @@
   cfg = config.home-lab.radarr;
 in {
   imports = [
-    (import ./common/basic-options.nix {
+    (import ./common/basic.nix {
       name = "radarr";
       port = 7878;
-      inherit config lib;
-    })
-    (import ./common/basic-config.nix {
-      name = "radarr";
       inherit config lib;
     })
   ];
