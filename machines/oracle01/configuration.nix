@@ -13,9 +13,10 @@ in {
 
     caddy = {
       enable = true;
-      authHost = "nas01";
+      authAddress = "nas01";
       email = "bubylou@pm.me";
     };
+
     headscale = {
       enable = true;
       nameservers = [nas01 nas02 "1.1.1.1" "9.9.9.9"];

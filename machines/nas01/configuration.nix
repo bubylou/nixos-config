@@ -18,6 +18,10 @@ in {
     domain = "bubylou.com";
 
     authelia.enable = true;
+    lldap = {
+      enable = true;
+      ldapBaseDN = "dc=bubylou,dc=com";
+    };
 
     beszel-hub.enable = true;
     beszel-agent = {
@@ -25,11 +29,11 @@ in {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/v5jX8oQ9lZzIgtX+b0BMJ6inyhZr/ta12w5Xs+mZg";
     };
 
-    bazarr.enable = true;
     blocky = {
       enable = true;
       adBlock = true;
       customDNS = {
+        "bazarr.bubylou.com" = mini01;
         "headscale.bubylou.com" = oracle01;
         "jellyfin.bubylou.com" = nas02;
         "jellyseerr.bubylou.com" = nas02;
@@ -142,12 +146,6 @@ in {
           ];
         }
       ];
-    };
-
-    lldap = {
-      enable = true;
-      ldapBaseDN = "dc=bubylou,dc=com";
-      ldapAddress = "0.0.0.0";
     };
 
     qbittorrent = {

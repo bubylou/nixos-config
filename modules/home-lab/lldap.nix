@@ -17,7 +17,7 @@ in {
     ldapAddress = lib.mkOption {
       type = lib.types.str;
       default = "127.0.0.1";
-      example = "127.0.0.1";
+      example = "0.0.0.0";
     };
 
     ldapPort = lib.mkOption {

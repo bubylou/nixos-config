@@ -71,6 +71,7 @@
               user = "acme";
               group = "acme";
             };
+
             "radarr-4k-apikey" = {
               keyFile = "/etc/nixos/secrets/radarr-4k-apikey";
             };
@@ -125,6 +126,14 @@
               group = config.services.authelia.instances.main.group;
               permissions = "0555";
               keyFile = "/etc/nixos/secrets/lldap-admin-password.secret";
+              destDir = "/etc/nixos/secrets";
+            };
+
+            "lldap-bind-credentials.secret" = {
+              user = config.services.authelia.instances.main.user;
+              group = config.services.authelia.instances.main.group;
+              permissions = "0555";
+              keyFile = "/etc/nixos/secrets/lldap-bind-credentials.secret";
               destDir = "/etc/nixos/secrets";
             };
 

@@ -25,6 +25,9 @@
   };
 
   home-lab = {
+    domain = "bubylou.com";
+
+    bazarr.enable = true;
     beszel-agent = {
       enable = true;
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/v5jX8oQ9lZzIgtX+b0BMJ6inyhZr/ta12w5Xs+mZg";
@@ -32,7 +35,7 @@
 
     caddy = {
       enable = true;
-      authHost = "nas01";
+      authAddress = "nas01";
       email = "bubylou@pm.me";
     };
 
