@@ -91,7 +91,7 @@ in {
             default_policy = "two_factor";
             rules = [
               {
-                domain_regex = "(jellyfin|jellyseerr|status).${config.home-lab.domain}$";
+                domain_regex = "(headscale|jellyfin|jellyseerr|status).${config.home-lab.domain}$";
                 policy = "bypass";
               }
               {
