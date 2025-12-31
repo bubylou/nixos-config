@@ -5,21 +5,13 @@
 }: let
   cfg = config.home-lab.authelia;
 in {
-  options.home-lab.authelia = {
-    enable = lib.mkEnableOption "enables authelia server";
-
-    host = lib.mkOption {
-      type = lib.types.str;
-      default = "127.0.0.1";
-      example = "127.0.0.1";
-    };
-
-    port = lib.mkOption {
-      type = lib.types.int;
-      default = 9091;
-      example = 9091;
-    };
-  };
+  imports = [
+    (import ./common/basic.nix {
+      name = "authelia";
+      port = 9091;
+      inherit config lib;
+    })
+  ];
 
   config = lib.mkIf cfg.enable {
     services = {
@@ -63,7 +55,7 @@ in {
           authentication_backend = {
             ldap = {
               implementation = "lldap";
-              address = "ldap://${config.home-lab.lldap.ldapHost}:${
+              address = "ldap://${config.home-lab.lldap.ldapAddress}:${
                 toString config.home-lab.lldap.ldapPort
               }";
               base_dn = config.home-lab.lldap.ldapBaseDN;
@@ -162,24 +154,14 @@ in {
         unixSocketPerm = 600;
       };
 
-      caddy = {
-        virtualHosts."auth.${config.home-lab.domain}" = {
-          useACMEHost = config.home-lab.domain;
+      caddy = lib.mkForce {
+        virtualHosts."${cfg.url}" = {
+          # no auth
           extraConfig = ''
-            reverse_proxy http://${cfg.host}:${toString cfg.port}
+            reverse_proxy http://${cfg.url}
           '';
         };
       };
-
-      gatus.settings.endpoints = [
-        {
-          name = "auth";
-          url = "https://auth.${config.home-lab.domain}";
-          interval = "1m";
-          client.dns-resolver = "tcp://127.0.0.1:53";
-          conditions = ["[STATUS] == 200" "[RESPONSE_TIME] < 100"];
-        }
-      ];
     };
 
     users.users.authelia-main.extraGroups = ["authelia-main"];

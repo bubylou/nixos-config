@@ -58,7 +58,7 @@ in {
     lldap = {
       enable = false;
       ldapBaseDN = "dc=bubylou,dc=com";
-      ldapHost = nas01;
+      ldapAddress = nas01;
     };
 
     ssh = {

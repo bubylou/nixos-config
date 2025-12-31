@@ -147,7 +147,7 @@ in {
     lldap = {
       enable = true;
       ldapBaseDN = "dc=bubylou,dc=com";
-      ldapHost = "0.0.0.0";
+      ldapAddress = "0.0.0.0";
     };
 
     qbittorrent = {
