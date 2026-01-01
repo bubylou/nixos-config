@@ -10,6 +10,10 @@
 
   desktop.kodi.enable = true;
 
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+  };
+
   hardware = {
     bluetooth.enable = true;
 
@@ -19,7 +23,9 @@
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
+        intel-compute-runtime
         intel-media-driver
+        vpl-gpu-rt
       ];
     };
   };
