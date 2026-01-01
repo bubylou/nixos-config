@@ -50,7 +50,11 @@ in {
       email = "bubylou@pm.me";
     };
 
-    gatus.enable = true;
+    gatus = {
+      enable = true;
+      url = "status.bubylou.com";
+    };
+
     jellyfin.enable = true;
     jellyseerr.enable = true;
 

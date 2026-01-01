@@ -54,7 +54,7 @@ in {
           log.level = "info";
 
           server = {
-            address = "tcp://:${toString cfg.port}";
+            address = "tcp://${cfg.address}:${toString cfg.port}";
             endpoints.authz.forward-auth.implementation = "ForwardAuth";
           };
 

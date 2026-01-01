@@ -36,6 +36,7 @@ in {
   config = lib.mkIf cfg.enable {
     services = {
       lldap = {
+        enable = true;
         silenceForceUserPassResetWarning = true;
 
         settings = {

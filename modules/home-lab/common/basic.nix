@@ -34,7 +34,7 @@ in {
       caddy = {
         virtualHosts."${cfg.url}" = {
           useACMEHost = config.home-lab.domain;
-          extraConfig = ''
+          extraConfig = lib.mkDefault ''
             import auth
             reverse_proxy http://${cfg.address}:${toString cfg.port}
           '';

@@ -25,6 +25,7 @@
   };
 
   outputs = inputs @ {
+    self,
     nvf,
     nixpkgs,
     nix-minecraft,
@@ -33,7 +34,8 @@
     colmena,
     ...
   }: {
-    colmenaHive = colmena.lib.makeHive {
+    colmenaHive = colmena.lib.makeHive self.outputs.colmena;
+    colmena = {
       meta = {
         nixpkgs = import nixpkgs {
           system = "x86_64-linux";
