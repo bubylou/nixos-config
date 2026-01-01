@@ -42,6 +42,14 @@ in {
           };
         };
       };
+      caddy = {
+        virtualHosts."${cfg.url}" = {
+          # no auth
+          extraConfig = lib.mkForce ''
+            reverse_proxy http://${cfg.url}
+          '';
+        };
+      };
     };
   };
 }
