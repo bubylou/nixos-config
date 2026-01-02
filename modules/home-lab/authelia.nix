@@ -178,7 +178,7 @@ in {
         virtualHosts."${cfg.url}" = {
           # no auth
           extraConfig = lib.mkForce ''
-            reverse_proxy http://${cfg.url}
+            reverse_proxy http://${cfg.address}:${toString cfg.port}
           '';
         };
       };

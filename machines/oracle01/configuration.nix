@@ -3,6 +3,10 @@
   nas02 = "100.64.0.4";
   oracle01 = "129.80.110.240";
 in {
+  imports = [
+    ./hardware-configuration.nix
+  ];
+
   home-lab = {
     domain = "bubylou.com";
 

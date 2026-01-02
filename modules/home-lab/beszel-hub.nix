@@ -28,8 +28,8 @@ in {
       };
 
       caddy = {
-        virtualHosts."${cfg.url}" = {
-          extraConfig = lib.mkForce ''
+        virtualHosts."beszel.${config.home-lab.domain}" = {
+          extraConfig = ''
             request_body {
               max_size 10MB
             }

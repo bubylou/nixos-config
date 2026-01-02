@@ -4,6 +4,12 @@
   nas02 = "100.64.0.4";
   oracle01 = "129.80.110.240";
 in {
+  imports = [
+    ../common/rclone.nix
+    ./disk-config.nix
+    ./hardware-configuration.nix
+  ];
+
   boot = {
     supportedFilesystems = ["zfs"];
     zfs.extraPools = ["tank"];

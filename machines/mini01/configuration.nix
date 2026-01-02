@@ -1,6 +1,8 @@
 {pkgs, ...}: {
   imports = [
     ../common/rclone.nix
+    ./disk-config.nix
+    ./hardware-configuration.nix
   ];
 
   boot.loader = {
