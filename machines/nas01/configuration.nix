@@ -17,7 +17,19 @@ in {
   home-lab = {
     domain = "bubylou.com";
 
-    authelia.enable = true;
+    authelia = {
+      enable = true;
+      address = "0.0.0.0";
+    };
+    caddy = {
+      enable = true;
+      email = "bubylou@pm.me";
+    };
+    lldap = {
+      enable = true;
+      ldapAddress = "0.0.0.0";
+      ldapBaseDN = "dc=bubylou,dc=com";
+    };
 
     beszel-hub.enable = true;
     beszel-agent = {
@@ -29,6 +41,7 @@ in {
       enable = true;
       adBlock = true;
       customDNS = {
+        "bazarr.bubylou.com" = mini01;
         "headscale.bubylou.com" = oracle01;
         "jellyfin.bubylou.com" = nas02;
         "jellyseerr.bubylou.com" = nas02;
@@ -36,11 +49,6 @@ in {
         "status.bubylou.com" = nas02;
         "bubylou.com" = nas01;
       };
-    };
-
-    caddy = {
-      enable = true;
-      email = "bubylou@pm.me";
     };
 
     glance = {
@@ -141,12 +149,6 @@ in {
           ];
         }
       ];
-    };
-
-    lldap = {
-      enable = true;
-      ldapBaseDN = "dc=bubylou,dc=com";
-      ldapHost = "0.0.0.0";
     };
 
     qbittorrent = {

@@ -5,19 +5,31 @@
 }: let
   cfg = config.home-lab.authelia;
 in {
-  options.home-lab.authelia = {
-    enable = lib.mkEnableOption "enables authelia server";
+  imports = [
+    (import ./common/basic.nix {
+      name = "authelia";
+      port = 9091;
+      inherit config lib;
+    })
+  ];
 
-    host = lib.mkOption {
+  options.home-lab.authelia = {
+    ldapBaseDN = lib.mkOption {
       type = lib.types.str;
-      default = "127.0.0.1";
+      default = config.home-lab.lldap.ldapBaseDN;
+      example = "dc=example,dc=com";
+    };
+
+    ldapAddress = lib.mkOption {
+      type = lib.types.str;
+      default = config.home-lab.lldap.ldapAddress;
       example = "127.0.0.1";
     };
 
-    port = lib.mkOption {
+    ldapPort = lib.mkOption {
       type = lib.types.int;
-      default = 9091;
-      example = 9091;
+      default = config.home-lab.lldap.ldapPort;
+      example = 389;
     };
   };
 
@@ -42,7 +54,7 @@ in {
           log.level = "info";
 
           server = {
-            address = "tcp://:${toString cfg.port}";
+            address = "tcp://${cfg.address}:${toString cfg.port}";
             endpoints.authz.forward-auth.implementation = "ForwardAuth";
           };
 
@@ -63,12 +75,12 @@ in {
           authentication_backend = {
             ldap = {
               implementation = "lldap";
-              address = "ldap://${config.home-lab.lldap.ldapHost}:${
-                toString config.home-lab.lldap.ldapPort
+              address = "ldap://${cfg.ldapAddress}:${
+                toString cfg.ldapPort
               }";
-              base_dn = config.home-lab.lldap.ldapBaseDN;
+              base_dn = cfg.ldapBaseDN;
               user = "uid=authelia_bind_user,ou=people,${
-                toString config.home-lab.lldap.ldapBaseDN
+                toString cfg.ldapBaseDN
               }";
               additional_users_dn = "ou=people";
               # allow username OR email login
@@ -91,7 +103,7 @@ in {
             default_policy = "two_factor";
             rules = [
               {
-                domain_regex = "(jellyfin|jellyseerr|status).${config.home-lab.domain}$";
+                domain_regex = "(headscale|jellyfin|jellyseerr|status).${config.home-lab.domain}$";
                 policy = "bypass";
               }
               {
@@ -115,7 +127,7 @@ in {
             cookies = [
               {
                 inherit (config.home-lab) domain;
-                authelia_url = "https://auth.${config.home-lab.domain}";
+                authelia_url = "https://${cfg.url}";
                 default_redirection_url = "https://jellyfin.${config.home-lab.domain}";
               }
             ];
@@ -163,23 +175,13 @@ in {
       };
 
       caddy = {
-        virtualHosts."auth.${config.home-lab.domain}" = {
-          useACMEHost = config.home-lab.domain;
-          extraConfig = ''
-            reverse_proxy http://${cfg.host}:${toString cfg.port}
+        virtualHosts."${cfg.url}" = {
+          # no auth
+          extraConfig = lib.mkForce ''
+            reverse_proxy http://${cfg.url}
           '';
         };
       };
-
-      gatus.settings.endpoints = [
-        {
-          name = "auth";
-          url = "https://auth.${config.home-lab.domain}";
-          interval = "1m";
-          client.dns-resolver = "tcp://127.0.0.1:53";
-          conditions = ["[STATUS] == 200" "[RESPONSE_TIME] < 100"];
-        }
-      ];
     };
 
     users.users.authelia-main.extraGroups = ["authelia-main"];

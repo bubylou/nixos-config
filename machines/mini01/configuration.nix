@@ -10,6 +10,10 @@
 
   desktop.kodi.enable = true;
 
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+  };
+
   hardware = {
     bluetooth.enable = true;
 
@@ -19,7 +23,9 @@
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
+        intel-compute-runtime
         intel-media-driver
+        vpl-gpu-rt
       ];
     };
   };
@@ -27,6 +33,7 @@
   home-lab = {
     domain = "bubylou.com";
 
+    bazarr.enable = true;
     beszel-agent = {
       enable = true;
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/v5jX8oQ9lZzIgtX+b0BMJ6inyhZr/ta12w5Xs+mZg";
@@ -34,7 +41,7 @@
 
     caddy = {
       enable = true;
-      authHost = "nas01";
+      authAddress = "nas01";
       email = "bubylou@pm.me";
     };
 

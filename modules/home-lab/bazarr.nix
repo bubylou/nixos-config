@@ -3,21 +3,21 @@
   config,
   ...
 }: let
-  cfg = config.home-lab.jellyseerr;
+  cfg = config.home-lab.bazarr;
 in {
   imports = [
     (import ./common/basic.nix {
-      name = "jellyseerr";
-      port = 5055;
+      name = "bazarr";
+      port = 6767;
       inherit config lib;
     })
   ];
 
   config = lib.mkIf cfg.enable {
     services = {
-      jellyseerr = {
+      bazarr = {
         enable = true;
-        inherit (cfg) port;
+        listenPort = cfg.port;
       };
     };
   };

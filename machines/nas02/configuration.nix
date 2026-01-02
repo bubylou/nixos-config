@@ -25,8 +25,6 @@ in {
   home-lab = {
     domain = "bubylou.com";
 
-    authelia.enable = true;
-
     beszel-agent = {
       enable = true;
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/v5jX8oQ9lZzIgtX+b0BMJ6inyhZr/ta12w5Xs+mZg";
@@ -36,6 +34,7 @@ in {
       enable = true;
       adBlock = true;
       customDNS = {
+        "bazarr.bubylou.com" = mini01;
         "headscale.bubylou.com" = oracle01;
         "jellyfin.bubylou.com" = nas02;
         "jellyseerr.bubylou.com" = nas02;
@@ -47,19 +46,17 @@ in {
 
     caddy = {
       enable = true;
-      authHost = "nas01";
+      authAddress = "nas01";
       email = "bubylou@pm.me";
     };
 
-    gatus.enable = true;
+    gatus = {
+      enable = true;
+      url = "status.bubylou.com";
+    };
+
     jellyfin.enable = true;
     jellyseerr.enable = true;
-
-    lldap = {
-      enable = false;
-      ldapBaseDN = "dc=bubylou,dc=com";
-      ldapHost = nas01;
-    };
 
     ssh = {
       enable = true;

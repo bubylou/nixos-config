@@ -25,6 +25,7 @@
   };
 
   outputs = inputs @ {
+    self,
     nvf,
     nixpkgs,
     nix-minecraft,
@@ -33,7 +34,8 @@
     colmena,
     ...
   }: {
-    colmenaHive = colmena.lib.makeHive {
+    colmenaHive = colmena.lib.makeHive self.outputs.colmena;
+    colmena = {
       meta = {
         nixpkgs = import nixpkgs {
           system = "x86_64-linux";
@@ -41,9 +43,13 @@
         };
       };
 
-      defaults = {name, ...}: {
+      defaults = {
+        name,
+        lib,
+        ...
+      }: {
         deployment = {
-          targetHost = name;
+          targetHost = lib.mkDefault name;
           targetUser = "buby";
         };
         imports = [
@@ -71,6 +77,7 @@
               user = "acme";
               group = "acme";
             };
+
             "radarr-4k-apikey" = {
               keyFile = "/etc/nixos/secrets/radarr-4k-apikey";
             };
@@ -128,6 +135,14 @@
               destDir = "/etc/nixos/secrets";
             };
 
+            "lldap-bind-credentials.secret" = {
+              user = config.services.authelia.instances.main.user;
+              group = config.services.authelia.instances.main.group;
+              permissions = "0555";
+              keyFile = "/etc/nixos/secrets/lldap-bind-credentials.secret";
+              destDir = "/etc/nixos/secrets";
+            };
+
             "prowlarr-apikey" = {
               keyFile = "/etc/nixos/secrets/prowlarr-apikey";
             };
@@ -164,13 +179,6 @@
       oracle01 = {...}: {
         deployment = {
           tags = ["server"];
-          keys = {
-            "acme-cloudflare-credentials.secret" = {
-              keyFile = "/etc/nixos/secrets/acme-cloudflare-credentials.secret";
-              user = "acme";
-              group = "acme";
-            };
-          };
         };
         imports = [
           "${nixpkgs}/nixos/modules/virtualisation/oci-image.nix"

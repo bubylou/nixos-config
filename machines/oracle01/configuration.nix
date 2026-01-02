@@ -11,13 +11,10 @@ in {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/v5jX8oQ9lZzIgtX+b0BMJ6inyhZr/ta12w5Xs+mZg";
     };
 
-    caddy = {
-      enable = true;
-      authHost = "nas01";
-      email = "bubylou@pm.me";
-    };
     headscale = {
       enable = true;
+      address = "0.0.0.0";
+      port = 443;
       nameservers = [nas01 nas02 "1.1.1.1" "9.9.9.9"];
     };
 

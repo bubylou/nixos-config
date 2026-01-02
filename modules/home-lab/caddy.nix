@@ -8,15 +8,15 @@ in {
   options.home-lab.caddy = {
     enable = lib.mkEnableOption "enables caddy";
 
-    authHost = lib.mkOption {
+    authAddress = lib.mkOption {
       type = lib.types.str;
-      default = "";
+      default = config.home-lab.authelia.address;
       example = "127.0.0.1";
     };
 
     authPort = lib.mkOption {
       type = lib.types.int;
-      default = 9091;
+      default = config.home-lab.authelia.port;
       example = 9091;
     };
 
@@ -41,7 +41,7 @@ in {
 
         extraConfig = ''
           (auth) {
-            forward_auth ${cfg.authHost}:${toString cfg.authPort} {
+            forward_auth ${cfg.authAddress}:${toString cfg.authPort} {
               uri /api/authz/forward-auth
               copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
             }
@@ -55,9 +55,6 @@ in {
           '';
         };
       };
-
-      # Allow the Caddy user(and service) to edit certs
-      tailscale.permitCertUid = config.services.caddy.user;
 
       gatus.settings.endpoints = [
         {
@@ -75,8 +72,8 @@ in {
       defaults.email = cfg.email;
 
       certs."${config.home-lab.domain}" = {
-        group = config.services.caddy.group;
-        domain = config.home-lab.domain;
+        inherit (config.services.caddy) group;
+        inherit (config.home-lab) domain;
         extraDomainNames = ["*.${config.home-lab.domain}"];
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
