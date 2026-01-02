@@ -14,10 +14,12 @@ in {
   ];
 
   config = lib.mkIf cfg.enable {
+    users.users.bazarr.extraGroups = ["media"];
     services = {
       bazarr = {
         enable = true;
         listenPort = cfg.port;
+        group = "media";
       };
     };
   };

@@ -14,6 +14,11 @@ in {
   ];
 
   config = lib.mkIf cfg.enable {
-    services.sonarr.enable = true;
+    users.users.sonarr.extraGroups = ["media"];
+
+    services.sonarr = {
+      enable = true;
+      group = "media";
+    };
   };
 }

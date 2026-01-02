@@ -1,10 +1,12 @@
 {pkgs, ...}: {
   time.timeZone = "America/New_York";
+
+  users.groups.media = {};
   users.users = {
     buby = {
       isNormalUser = true;
       description = "Nicholas Malcolm";
-      extraGroups = ["networkmanager" "wheel"];
+      extraGroups = ["media" "networkmanager" "wheel"];
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF/e963EBACYLtFHUXnffAgEARmrALCpe4klwAaZ9UEA buby@stealth16ai"
@@ -18,7 +20,9 @@
       extraGroups = ["networkmanager"];
     };
   };
+
   programs.zsh.enable = true;
+
   security.sudo.extraRules = [
     {
       groups = ["wheel"];

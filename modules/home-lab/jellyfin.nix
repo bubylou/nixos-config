@@ -15,7 +15,12 @@ in {
   ];
 
   config = lib.mkIf cfg.enable {
-    services.jellyfin.enable = true;
+    users.users.jellyfin.extraGroups = ["media"];
+
+    services.jellyfin = {
+      enable = true;
+      group = "media";
+    };
 
     environment.systemPackages = with pkgs; [
       jellyfin
