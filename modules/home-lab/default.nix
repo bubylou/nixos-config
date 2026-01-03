@@ -17,6 +17,7 @@
     ./jellyseerr.nix
     ./lldap.nix
     ./minecraft.nix
+    ./navidrome.nix
     ./prowlarr.nix
     ./qbittorrent.nix
     ./radarr.nix
