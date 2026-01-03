@@ -51,6 +51,7 @@ in {
         "headscale.bubylou.com" = oracle01;
         "jellyfin.bubylou.com" = nas02;
         "jellyseerr.bubylou.com" = nas02;
+        "lidarr.bubylou.com" = nas02;
         "navidrome.bubylou.com" = nas02;
         "radarr-4k.bubylou.com" = mini01;
         "status.bubylou.com" = nas02;

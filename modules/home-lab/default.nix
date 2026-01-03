@@ -15,6 +15,7 @@
     ./headscale.nix
     ./jellyfin.nix
     ./jellyseerr.nix
+    ./lidarr.nix
     ./lldap.nix
     ./minecraft.nix
     ./navidrome.nix

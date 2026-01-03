@@ -169,6 +169,9 @@
               user = "acme";
               group = "acme";
             };
+            "lidarr-apikey" = {
+              keyFile = "/etc/nixos/secrets/lidarr-apikey";
+            };
           };
         };
         imports = [{nixpkgs.overlays = [inputs.nix-minecraft.overlay];}];
