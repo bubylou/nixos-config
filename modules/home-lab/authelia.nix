@@ -107,7 +107,7 @@ in {
                 policy = "bypass";
               }
               {
-                domain_regex = "(qbittorrent|radarr|radarr-4k|sonarr).${config.home-lab.domain}$";
+                domain_regex = "(prowlarr|radarr|radarr-4k|sonarr|qbittorrent).${config.home-lab.domain}$";
                 policy = "bypass";
                 resources = ["^/api.*" "/ping"];
               }

@@ -38,7 +38,7 @@
     bazarr.enable = true;
     beszel-agent = {
       enable = true;
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/v5jX8oQ9lZzIgtX+b0BMJ6inyhZr/ta12w5Xs+mZg";
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGutSQFNWBBGZjbT/zzm0NJNdU9FU09J4G5isz73Iyer";
     };
 
     caddy = {
@@ -108,6 +108,8 @@
       };
     };
   };
+
+  powerManagement.enable = true;
 
   system.stateVersion = "25.05";
 }

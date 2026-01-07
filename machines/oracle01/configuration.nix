@@ -1,7 +1,8 @@
 {...}: let
-  nas01 = "100.64.0.3";
-  nas02 = "100.64.0.4";
-  oracle01 = "129.80.110.240";
+  mini01 = "100.64.0.5";
+  nas01 = "100.64.0.4";
+  nas02 = "100.64.0.3";
+  oracle01 = "150.136.152.171";
 in {
   imports = [
     ./hardware-configuration.nix
@@ -12,7 +13,7 @@ in {
 
     beszel-agent = {
       enable = true;
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/v5jX8oQ9lZzIgtX+b0BMJ6inyhZr/ta12w5Xs+mZg";
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGutSQFNWBBGZjbT/zzm0NJNdU9FU09J4G5isz73Iyer";
     };
 
     headscale = {

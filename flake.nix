@@ -50,7 +50,7 @@
       }: {
         deployment = {
           targetHost = lib.mkDefault name;
-          targetUser = "buby";
+          targetUser = lib.mkDefault "buby";
         };
         imports = [
           ./machines/${name}/configuration.nix
